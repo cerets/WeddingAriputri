@@ -1,0 +1,2191 @@
+:root{
+  --pink: #f14e95;
+  --bg: #0a0a0a;
+  --shadow: 0 2px 3px rgb(0 0 0 / 0.5);
+  --mocha: #3e2c2c;
+  --mocha-soft: #5a3e3e;
+  --pink-soft: #f8c8dc;
+  --white-soft: #fff5f8;
+  
+}
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+* {
+  max-width: 100%;
+}
+/* CONTAINER */
+#admin-panel {
+  background: linear-gradient(180deg, #0f0f0f, #000);
+  min-height: 100vh;
+  padding: 20px;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* TITLE */
+#admin-panel h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* GRID */
+#admin-panel .stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* CARD */
+#admin-panel .card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 16px;
+  backdrop-filter: blur(12px);
+  
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+/* LABEL */
+#admin-panel .card {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ANGKA */
+#admin-panel .card span {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* SEARCH */
+#admin-panel input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  margin-top: 20px;
+  
+  background: rgba(255,255,255,0.06);
+  color: white;
+
+  outline: none;
+}
+
+/* SELECT + BUTTON */
+#admin-panel select,
+#admin-panel button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+
+  background: rgba(255,255,255,0.08);
+  color: white;
+
+  margin-top: 10px;
+}
+
+/* LIST CONTAINER */
+#admin-list {
+  margin-top: 20px;
+}
+
+/* ITEM LIST */
+#admin-list .item {
+  background: rgba(255,255,255,0.05);
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+
+  line-height: 1.6;
+  color: white;
+}
+
+/* NAMA */
+#admin-list .item strong {
+  font-size: 15px;
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* STATUS */
+#admin-list .item small {
+  color: rgba(255,255,255,0.6);
+}
+
+/* SPACING FILTER */
+#admin-panel .filter {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* BUTTON EXPORT */
+#admin-panel button {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#admin-panel button:active {
+  transform: scale(0.96);
+}
+
+/* LOCK SCREEN */
+#cover {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)),
+              url('cover.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 1s ease;
+}
+
+/* isi */
+.cover-content {
+  color: white;
+}
+
+.cover-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 5rem;
+  margin-bottom: 1px;
+  background: linear-gradient(30deg, #f14e95, #ffffff, #f14e95);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 10px rgba(241,78,149,0.7),
+    0 0 20px rgba(255,255,255,0.6);
+
+  animation: pulseGlow 3s ease-in-out infinite;
+
+}
+
+.guest-label {
+  opacity: 0.8;
+  font-size: 10px;
+  z-index: 999;
+  font-family: serif;
+}
+#guest-name {
+   font-size: 2rem;
+  opacity: 0.8;
+  margin-top: 15px;
+  
+  font-family:Berkshire Swash;
+  color: white;
+  text-shadow: 
+    0 0 0px rgba(241, 78, 149, 0.8),
+    0 0 0px rgba(241, 78, 149, 0.6),
+    0 0 10px rgba(241, 78, 149, 0.4);
+  
+
+}
+
+/* ✨ Typing Cursor */
+.typing::after {
+  content: "";
+  margin-left: 5px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* BASE */
+#fingerprint {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 20px auto;
+  cursor: pointer;
+}
+/* IDLE GLOW (HIDUP) */
+.fp-group {
+  animation: idleGlow 1s ease-in-out infinite;
+}
+
+@keyframes idleGlow {
+  0% { filter: drop-shadow(0 0 2px rgba(132, 132, 132, 1)); }
+  50% { filter: drop-shadow(0 0 10px rgba(132, 132, 132, 1)); }
+  100% { filter: drop-shadow(0 0 2px rgba(132, 132, 132, 1)); }
+}
+
+/* SCAN LINE */
+.scan-line {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+
+  background: linear-gradient(
+    to top,
+    transparent,
+    rgba(132, 132, 132, 1),
+    transparent
+  );
+
+  opacity: 0;
+}
+
+/* CAHAYA BESAR */
+.scan-light {
+  position: absolute;
+  inset: 0;
+background: linear-gradient(45deg, #c5a85c, #d9d9d9, #c5a85c)transparent 70%);
+  opacity: 0;
+}
+
+/* SAAT DISENTUH */
+#fingerprint.active .scan-line {
+  opacity: 0.5;
+  animation: scanMove 3s ease forwards;
+}
+
+#fingerprint.active .scan-light {
+  opacity: 0.5;
+  animation: flashLight 8s ease;
+}
+
+/* ANIMASI SCAN */
+@keyframes scanMove {
+  0% { top: -100%; }
+  100% { top: 120%; }
+}
+
+@keyframes flashLight {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* GARIS MENYALA SAAT SCAN */
+#fingerprint.active .fp-line {
+  stroke: #f8c8dc;
+  filter: drop-shadow(0 0 60px #00ffcc);
+  
+}
+
+/* SUKSES */
+#fingerprint.success .fp-line {
+  stroke: #f8c8dc;
+  filter: drop-shadow(0 0 60px #f8c8dc);
+}
+.crease {
+  stroke: #f8c8dc;
+}
+
+/* ANIMASI HILANG */
+#cover.hide {
+  opacity: 0;
+  visibility: hidden;
+
+  transform: scale(2) translateY(-40px); /* 🔥 zoom + naik */
+  filter: blur(0px);
+
+  transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+
+.sparkle {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  background: radial-gradient(circle, #fff, #f14e95);
+
+  pointer-events: none;
+  z-index: 9999;
+
+  box-shadow: 
+    0 0 6px #fff,
+    0 0 12px #f14e95;
+
+  animation: sparkleFade 0.8s ease-out forwards;
+}
+
+@keyframes sparkleFade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+#admin-panel {
+  margin-top: 30px;
+}
+.comment-list {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.comment-item {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.comment-item strong {
+  color: #f14e95;
+}
+
+.comment-item small {
+  display: block;
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+
+/* ===== PROFILE FULL ===== */
+.profile-full {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+transition: transform 1.2s ease;
+
+  background: black;
+}
+
+/* FOTO */
+.profile-full img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transform: scale(1.1);
+  transition: 2s ease;
+}
+
+/* ZOOM HALUS SAAT SCROLL */
+.profile-full.show img {
+  transform: scale(1);
+}
+
+/* OVERLAY */
+.profile-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.9),
+    rgba(0,0,0,0.5),
+    rgba(0,0,0,0.2)
+  );
+}
+
+/* CONTENT */
+.profile-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  margin-bottom: 80px;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1.5s ease;
+}
+
+/* AKTIF */
+.profile-full.show .profile-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TEXT */
+.profile-content .label {
+  font-size: 12px;
+  letter-spacing: 3px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.profile-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.profile-content .desc {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: -10;
+}
+
+/* VARIASI POSITION */
+.profile-full.ari {
+  align-items: flex-start;     /* naik ke atas */
+  justify-content: flex-start;   /* ke kanan */
+}
+/* POSISI TEKS */
+.profile-full.ari .profile-content {
+  text-align: right;
+  margin-top: 80px;
+  margin-right: 40px;
+  margin-bottom: 0; /* hilangkan posisi bawah */
+}
+/* KHUSUS PUTRI → KIRI BAWAH */
+.profile-full.putri {
+  align-items: flex-end;     /* ke bawah */
+  justify-content: flex-end; /* ke kiri */
+}
+
+/* POSISI TEKS */
+.profile-full.putri .profile-content {
+  text-align: left;
+  margin-left: 10px;
+  margin-bottom: 60px;
+  margin-top: 0;
+}
+
+.profile-content {
+  max-width: 300px;
+}
+
+.profile-content h2 {
+  line-height: 1.2;
+}
+
+
+
+.profile-full img {
+  transition: all 1.8s cubic-bezier(0.22,1,0.36,1);
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  opacity: 0;
+}
+
+.profile-overlay {
+  z-index: 2;
+}
+/* DEFAULT SEMBUNYI */
+.profile-content .anim {
+  opacity: 0;
+  filter: blur(10px);
+  transition: all 2s ease;
+}
+
+/* ===== ARI (DARI KIRI) ===== */
+.profile-full.ari .anim {
+  transform: translateX(-80px);
+}
+
+.profile-full.ari.show .anim {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+
+/* ===== PUTRI (DARI KANAN) ===== */
+.profile-full.putri .anim {
+  transform: translateX(80px);
+}
+
+.profile-full.putri.show .anim {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+
+
+/* GERAK MENDEKAT */
+.profile-full.ari.active {
+  transform: translateX(-40px) scale(1.03);
+}
+
+.profile-full.putri.active {
+  transform: translateX(40px) scale(1.03);
+}
+/* DELAY BIAR MASUK BERURUTAN */
+.profile-full.show .anim:nth-child(1) {
+  transition-delay: 0.2s;
+}
+.profile-full.show .anim:nth-child(2) {
+  transition-delay: 0.5s;
+}
+.profile-full.show .anim:nth-child(3) {
+  transition-delay: 0.8s;
+}
+
+
+/* ===== ARI (DARI KANAN) ===== */
+.profile-full.ari img {
+  transform: translateX(100px) scale(1.2);
+}
+
+.profile-full.ari.show img {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* ===== PUTRI (DARI KIRI) ===== */
+.profile-full.putri img {
+  transform: translateX(-100px) scale(1.1);
+}
+
+.profile-full.putri.show img {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   LOKASI SECTION PREMIUM
+========================= */
+.alamat-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+/* BACKGROUND */
+.alamat-bg {
+  position: absolute;
+  inset: 0;
+  background: url('alamat.jpg') center/cover no-repeat;
+  transform: scale(1.2);
+  animation: zoomBg 20s ease-in-out infinite alternate;
+}
+
+@keyframes zoomBg {
+  from { transform: scale(1.2); }
+  to   { transform: scale(1.35); }
+}
+
+/* OVERLAY */
+.alamat-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+/* CONTENT */
+.alamat-content {
+  position: relative;
+  z-index: 2;
+  max-width: 90%;
+}
+
+/* GLASS MAP */
+.map-glass {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 350px;
+  height: 220px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.map-glass iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* TEXT */
+
+
+/* ALAMAT */
+.alamat-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  transform: translateX(100px) scale(1.1);
+}
+
+/* BUTTON PREMIUM */
+.btn-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 20px;
+  padding: 10px 20px;
+
+  border-radius: 50px;
+  text-decoration: none;
+  color: #fff;
+
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  transition: all 0.3s ease;
+}
+
+
+/* PIN CONTAINER */
+.map-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+
+/* TITIK PIN */
+.pin-core {
+  width: 14px;
+  height: 14px;
+  background: gold;
+  border-radius: 50%;
+  box-shadow: 0 0 15px gold;
+  position: relative;
+  z-index: 2;
+}
+
+/* GLOW PULSE */
+.pin-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+
+  background: rgba(255,215,0,0.3);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+  animation: pulsePin 2s infinite;
+}
+
+/* ANIMASI */
+@keyframes pulsePin {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0.8;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* HOVER EFFECT */
+.btn-map:hover {
+  background: rgba(255,215,0,0.2);
+  border-color: gold;
+  transform: translateY(-2px);
+}
+#konfirmasi {
+  
+  background-image: url('kehadiran.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.profile-section .container {
+  margin: auto;
+}
+
+body.locked {
+  overflow: hidden;
+}
+
+body {
+  font-size: 1rem;
+  font-family: 'work sans', sans-serif;
+ opacity: 1;
+  overflow-y: scroll;
+  background: url('hero.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+  
+  
+
+
+
+@keyframes shine {
+  0% { transform: translate(0,0); }
+  50% { transform: translate(50%,50%); }
+  100% { transform: translate(0,0); }
+}
+.nama-couple {
+  font-family: 'Fleur De Leah', cursive;
+  font-size: 6rem;
+  text-align: center;
+
+  position: absolute;
+  top: 34%;              /* 🔥 atur naik turun */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+/* semua part awalnya hidden */
+.part {
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+  display: inline-block;
+  margin: 0 -2px;
+}
+
+/* efek muncul */
+.part.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: all 0.8s ease;
+}
+
+/* A & P spesial */
+.part-a,
+.part-p {
+  font-size: 8rem;
+  font-family: 'Great Vibes', cursive;
+  
+
+  background: linear-gradient(30deg, #f14e95, #ffffff, #f14e95);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 10px rgba(241,78,149,0.7),
+    0 0 20px rgba(255,255,255,0.6);
+
+  animation: pulseGlow 1s ease-in-out infinite;
+}
+.part-ri {
+  margin-left: -6px;
+  color: white;
+}
+.part-utri {
+  margin-left: -6px;
+  color: white;
+}
+/* simbol & */
+.part-and {
+  font-size: 5rem;
+  margin: 20px;
+  color: white;
+ 
+}
+
+/* glow animasi */
+@keyframes pulseGlow {
+  0% {
+    text-shadow: 0 0 5px rgba(241,78,149,0.4);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(241,78,149,0.9);
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(241,78,149,0.4);
+  }
+}
+
+
+/* semua section */
+.profile-section,
+.waktu-section,
+.alamat-section,
+.galeri-section,
+.gift-section,
+.rsvp-section {
+  
+  background: transparent;
+
+  color: #333; /* teks jadi gelap biar kebaca */
+}
+
+
+/* ASSISTIVE TOUCH */
+.assistive-touch {
+  position: fixed;
+  bottom: 90px;
+  right: 25px;
+  z-index: 9999;
+   touch-action: none; /* penting buat drag HP */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.assistive-touch.idle {
+  transform: scale(0.7);
+  opacity: 0.6;
+}
+/* tombol utama */
+.at-button {
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(15px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 22px;
+  color: #f14e95;
+  cursor: pointer;
+
+  box-shadow: 0 0 20px rgba(241,78,149,0.4);
+  transition: 0.3s;
+}
+
+/* menu */
+.at-menu {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.assistive-touch.active .at-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* item */
+.at-item {
+  width: 38px;
+  height: 38px;
+  font-size: 14px;
+  border-radius: 50%;
+
+  background: rgba(0,0,0,0.6);
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  text-decoration: none;
+  font-size: 18px;
+
+  transition: 0.3s;
+}
+
+.at-item:hover {
+  background: #f8c8dc;
+  transform: scale(1.1);
+}
+
+/* sembunyikan saat cover aktif */
+body.locked .assistive-touch {
+  display: none;
+}
+.assistive-touch {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: 0.4s;
+}
+
+body:not(.locked) .assistive-touch {
+  opacity: 1;
+  transform: scale(1);
+}
+.hero {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  
+}
+
+/* BACKGROUND PARALLAX */
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: url('hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  z-index: 0;
+
+  transform: scale(1.05);
+}
+
+/* pastikan konten di atas */
+.hero main {
+  position: relative;
+  z-index: 2;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* 🔥 tengah vertikal */
+  align-items: center;      /* 🔥 tengah horizontal */
+
+  text-align: center;
+  padding: 20px;
+}
+
+
+.btn-open {
+  display: block;
+  margin: 20px auto;
+  position: relative;
+  padding: 14px 32px;
+  border-radius: 16px;
+
+  background: linear-gradient(45deg, #d4af37, #fff, #d4af37);
+  background-size: 200% 200%;
+
+  color: #1a1a1a;
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+
+  transition: all 0.5s ease;
+
+  box-shadow:
+    0 8px 25px rgba(212,175,55,0.4),
+    inset 0 0 10px rgba(255,255,255,0.4);
+}
+/* HOVER → TRANSPARAN PUTIH */
+.btn-open:hover {
+  background: rgba(255,255,255,0.08); /* transparan putih */
+  color: #fff;
+
+  border: 1px solid rgba(255,255,255,0.4);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 10px 30px rgba(255,255,255,0.15),
+    inset 0 0 12px rgba(255,255,255,0.2);
+
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* efek kilau tetap ada tapi lebih soft */
+.btn-open::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.6),
+    transparent
+  );
+
+  transition: 0.6s;
+}
+
+.btn-open:hover::before {
+  left: 120%;
+}
+
+/* klik (biar terasa real) */
+.btn-open:active {
+  transform: scale(0.96);
+}
+.navbar-brand, 
+.logo,
+h1, h2 {
+  position: relative;
+  z-index: 5;
+}
+
+.navbar-brand {
+  color: #ff6fa5; /* pink */
+  text-shadow: 0 0 5px white, 0 0 10px rgba(255,255,255,0.7);
+}
+.hero h1{
+  font-family: Great Vibes, cursive;
+  font-size: 7rem;
+  text-shadow: var(--shadow);
+  
+  
+}
+.hari{
+
+  font-size: 3rem;
+  font-family: 'italianno', cursive;
+  text-shadow: var(--shadow);
+  
+
+}
+.kami{
+  
+  font-size: clamp(2rem, 5vw, 5rem);
+
+  font-family: "Berkshire Swash", serif;
+  text-shadow: var(--shadow);
+}
+
+.hero h4 {
+  
+  font-size: 2rem;
+  font-family: Great Vibes;
+  text-shadow: var(--shadow)
+}
+
+.hero p {
+  font-size: 1.5rem;
+  text-shadow: var(--shadow);
+}
+
+/* delay biar muncul satu-satu */
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+
+
+.hero a {
+  position: absolute;
+  overflow: hidden;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+
+  /* HAPUS background lama */
+  background: rgba(255,255,255,0.08);
+  color: white;
+
+  border: 1px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-radius: 16px;
+  padding: 14px 30px;
+
+  box-shadow:
+    0 10px 30px rgba(255,255,255,0.15),
+    inset 0 0 12px rgba(255,255,255,0.2);
+
+  transition: all 0.4s ease;
+}
+.hero a {
+  color: rgba(255,255,255,0.9) !important;
+  font-weight: 500;
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.5),
+    0 0 20px rgba(255,255,255,0.2);
+  box-shadow: 
+    0 0 0px rgba(241, 78, 149, 0.8),
+    0 0 0px rgba(241, 78, 149, 0.6),
+    0 0 10px rgba(241, 78, 149, 0.4);
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: white;
+}
+/* 🌊 RIPPLE GOLD */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  pointer-events: none;
+
+  background: radial-gradient(circle,
+    rgba(241, 78, 149, 0.8) 0%,
+    rgba(255,255,255,0.9) 40%,
+    transparent 70%
+  );
+
+  animation: rippleElite 0.7s ease-out;
+}
+
+@keyframes rippleElite {
+  to {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+
+/* ✨ SPARKLE */
+.spark-click {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+
+  background: radial-gradient(circle, #fff, #fff5f8);
+
+  animation: sparkleOut 0.8s ease-out forwards;
+}
+
+@keyframes sparkleOut {
+  0% {
+    transform: scale(1) translate(0,0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.3) translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}
+
+/* ⚡ FLASH EFFECT */
+.flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle,
+    rgba(241, 78, 149, 0.8),
+    transparent 70%
+  );
+  opacity: 0;
+  animation: flashClick 0.4s ease;
+}
+
+@keyframes flashClick {
+  0% { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+
+
+/* hover → lebih hidup */
+.hero a:hover {
+  color: #fff !important;
+
+  text-shadow:
+    0 0 15px rgba(255,255,255,0.8),
+    0 0 40px rgba(255,255,255,0.4);
+}
+/* hover */
+.hero a:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translate(-50%, -55%) scale(1.05);
+
+  box-shadow:
+    0 0 25px rgba(255,255,255,0.4),
+    0 0 60px rgba(255,255,255,0.2);
+}
+
+.hero a:active {
+  color: #ff4da6 !important;
+  transform: translate(-50%, -45%) scale(0.92);
+  box-shadow:
+    inset 0 4px 10px rgba(0,0,0,0.5),
+    0 0 15px rgba(255, 77, 166, 0.6);
+}
+
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  animation: fadeOverlay 2s ease forwards;
+  opacity: 0;
+    background: 
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.8),rgba(255, 255, 255, 0.8)),
+    linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.9));
+  pointer-events: none;
+}
+.hero::after {
+  content:"";
+  position:absolute;
+  bottom:-1px;
+  width:100%;
+  height:100px;
+  background: linear-gradient(to bottom, transparent, #0a0a0a);
+}
+
+.time-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  width: 70px;
+  height: 70px;
+  border-radius: 40%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+box-shadow: 
+    0 0 0px rgba(241, 78, 149, 0.8),
+    0 0 0px rgba(241, 78, 149, 0.6),
+    0 0 10px rgba(241, 78, 149, 0.4);
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: white;
+}
+
+
+.time-box span {
+  font-size: 2rem;   /* lebih besar */
+  font-weight: 700;    /* lebih tebal */
+  line-height: 1;
+  text-shadow: var(--shadow);
+}
+
+
+
+
+
+#countdown {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap; /* biar rapi di HP */
+}
+
+
+
+
+
+.hero main {
+  position: relative;
+  margin-top: -40px;
+  z-index: 1;
+}
+
+
+/*media query*/
+/*laptop*/
+@media (max-width: 992px) {
+  html{
+    font-size: 75%;
+  }
+}
+
+
+/*tablet*/
+@media (max-width: 768px) {
+  html{
+    font-size: 65%
+  }
+}
+/*mobile phone*/
+@media (max-width: 576px) {
+  html{
+    font-size: 65%
+  }
+  
+}
+
+
+/* TEXT ANIMATION */
+.cinematic {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(10px);
+}
+
+.cinematic.show {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition: all 5s ease;
+}
+
+
+.delay-1 { transition-delay: 0.3s; }
+.delay-2 { transition-delay: 0.6s; }
+.delay-3 { transition-delay: 0.9s; }
+.delay-4 { transition-delay: 1.2s; }
+
+/* ===== GIFT MODERN 2 BANK ===== */
+.gift-modern {
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* background */
+.gift-bg {
+  position: absolute;
+  inset: 0;
+  background: url('gift-bg.jpg') center/cover no-repeat;
+  transform: scale(1.2);
+}
+
+
+
+/* content */
+.gift-content {
+  position: relative;
+  z-index: 2;
+  max-width: 500px;
+}
+
+/* title */
+.gift-title {
+  font-size: 2.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.gift-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  opacity: 0.6;
+  margin-top: -10px;
+}
+
+/* icon */
+.gift-icon {
+  font-size: 40px;
+  margin: 20px 0;
+}
+
+/* desc */
+.gift-desc {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+/* LIST */
+.gift-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ITEM */
+.gift-item {
+  padding: 20px;
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  transition: 0.3s;
+}
+
+.gift-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(241,78,149,0.3);
+}
+
+/* rekening */
+.gift-modern .rekening {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+/* nama */
+.gift-modern .an {
+  opacity: 0.8;
+}
+
+/* button */
+.gift-modern .btn-copy {
+  margin-top: 15px;
+  padding: 10px 20px;
+
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+
+  transition: 0.3s;
+}
+
+.gift-modern .btn-copy:hover {
+  background: white;
+  color: black;
+}
+
+
+.rsvp-section {
+  padding: 100px 20px;
+  background: #0a0a0a;
+  color: white;
+}
+
+/* form */
+.rsvp-form {
+  max-width: 500px;
+  margin: auto;
+  margin-top: 30px;
+}
+
+/* input */
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+
+  outline: none;
+}
+
+/* =========================
+   ULTRA ELITE GOLD BUTTON
+========================= */
+.btn-copy,
+.btn-kirim {
+  position: relative;
+  padding: 12px 26px;
+  border-radius: 14px;
+
+  background: rgba(255, 215, 0, 0.06);
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  color: #f5d27a;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+
+  overflow: hidden;
+  transition: all 0.35s ease;
+  
+  box-shadow:
+    inset 0 0 8px rgba(255, 215, 0, 0.15),
+    0 4px 15px rgba(0,0,0,0.25);
+}
+
+/* =========================
+   SHIMMER IDLE (AUTO KILAU)
+========================= */
+.btn-copy::before,
+.btn-kirim::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.5),
+    transparent
+  );
+
+  animation: shimmer 3.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -120%; }
+  50% { left: 120%; }
+  100% { left: 120%; }
+}
+
+/* =========================
+   INNER GLOW LAYER
+========================= */
+.btn-copy::after,
+.btn-kirim::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255,215,0,0.15),
+    transparent 70%
+  );
+
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* =========================
+   HOVER EFFECT
+========================= */
+.btn-copy:hover,
+.btn-kirim:hover {
+  transform: translateY(-3px) scale(1.03);
+
+  background: rgba(255, 215, 0, 0.12);
+  border-color: gold;
+  color: #fff;
+
+  box-shadow:
+    0 10px 25px rgba(255,215,0,0.25),
+    0 0 25px rgba(255,215,0,0.15),
+    inset 0 0 12px rgba(255,215,0,0.2);
+}
+
+.btn-copy:hover::after,
+.btn-kirim:hover::after {
+  opacity: 1;
+}
+
+/* =========================
+   CLICK / PRESS EFFECT
+========================= */
+.btn-copy:active,
+.btn-kirim:active {
+  transform: scale(0.97);
+  
+  box-shadow:
+    inset 0 2px 8px rgba(0,0,0,0.4),
+    inset 0 0 10px rgba(255,215,0,0.2);
+}
+
+/* =========================
+   SMOOTH TOUCH (MOBILE)
+========================= */
+.btn-copy,
+.btn-kirim {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  filter: blur(10px);
+  transition: all 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+
+#doa {
+  position: relative;
+  padding-bottom: 150px;
+  min-height: 100vh; /* minimal 1 layar */
+  padding-top: 80px;
+  /* background foto */
+  background: url('bg-doa.jpg') center/cover no-repeat;
+}
+
+
+/* BISMILLAH */
+.bismillah {
+  font-family: 'Amiri', serif;
+  font-size: 1.8rem;
+  text-align: center;
+  color: #3e2c2c;
+  margin-bottom: 10px;
+margin-top: 20px;
+  /* efek elegan */
+  text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  /* gradient gold */
+  background: linear-gradient(45deg, #d4af37, #f8c8dc, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* glow */
+  text-shadow: 
+    0 0 5px rgba(212,175,55,0.4),
+    0 0 10px rgba(248,200,220,0.4),
+    0 0 20px rgba(212,175,55,0.3);
+
+  animation: glowPulse 3s ease-in-out infinite;
+}
+ @keyframes glowPulse {
+  0% {
+    text-shadow: 
+      0 0 5px rgba(212,175,55,0.3),
+      0 0 10px rgba(248,200,220,0.3);
+  }
+  50% {
+    text-shadow: 
+      0 0 15px rgba(212,175,55,0.6),
+      0 0 25px rgba(248,200,220,0.6);
+  }
+  100% {
+    text-shadow: 
+      0 0 5px rgba(212,175,55,0.3),
+      0 0 10px rgba(248,200,220,0.3);
+  }
+}
+
+/* animasi awal */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+  filter: blur(6px);
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* SUBTITLE */
+.subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+/* CONTAINER DOA */
+.doa {
+  max-width: 700px;
+  margin: auto;
+  padding: 25px;
+   margin-bottom: 20px;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 15px;
+
+  /* efek glass */
+  backdrop-filter: blur(0px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* ARAB */
+.doa .arab {
+  font-family: 'Amiri', serif;
+  font-size: 1.8rem;
+  text-align: center;
+  direction: rtl;
+  line-height: 2.2;
+  color: #3e2c2c;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.1))
+  text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  /* gradient gold */
+  background: linear-gradient(45deg, #d4af37, #f8c8dc, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* glow */
+  text-shadow: 
+    0 0 5px rgba(212,175,55,0.4),
+    0 0 10px rgba(248,200,220,0.4),
+    0 0 20px rgba(212,175,55,0.3);
+
+  animation: glowPulse 2s ease-in-out infinite;
+}
+ @keyframes glowPulse {
+  0% {
+    text-shadow: 
+      0 0 5px rgba(212,175,55,0.3),
+      0 0 10px rgba(248,200,220,0.3);
+  }
+  50% {
+    text-shadow: 
+      0 0 15px rgba(212,175,55,0.6),
+      0 0 25px rgba(248,200,220,0.6);
+  }
+  100% {
+    text-shadow: 
+      0 0 5px rgba(212,175,55,0.3),
+      0 0 10px rgba(248,200,220,0.3);
+  }
+}
+
+
+/* TERJEMAHAN */
+.doa .arti {
+  font-size: 1rem;
+  text-align: center;
+  color: white;
+  font-style: italic;
+  margin-bottom: 10px;
+  
+}
+
+/* SUMBER AYAT */
+.doa small {
+  display: block;
+  text-align: center;
+  color:#777;
+}
+
+/* garis ornamen */
+.doa::before {
+  content: "";
+  width: 6px;
+  height: 2px;
+  background: #3e2c2c;
+  margin: 0 auto ;
+  display: none !important;
+}
+
+/* delay biar berurutan */
+.delay-1 { transition-delay: 0.3s; }
+.delay-2 { transition-delay: 0.7s; }
+
+
+
+
+/* TEXT */
+.fancy-text {
+  text-align: center;
+  font-size: 1.2rem;
+  color: wheat;
+  margin: 40px auto;
+  letter-spacing: 1px;
+  position: relative;
+
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease;
+}
+
+/* saat muncul */
+.fancy-text.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* garis melebar keluar */
+.fancy-text.show::before {
+  width: 70px;
+  left: calc(50% - 90px);
+}
+
+.fancy-text.show::after {
+  width: 70px;
+  right: calc(50% - 90px);
+}
+#typing-text::after {
+  content: "";
+  margin-left: 5px;
+  color: #f14e95;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* HERO GLOW HALUS */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(241,78,149,0.2), transparent 70%);
+  animation: glowMove 6s ease-in-out infinite alternate;
+}
+
+@keyframes glowMove {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 0.8; }
+}
+  /* section waktu */
+
+
+
+/* subtitle */
+.section-subtitle {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 40px;
+  font-family: serif;
+  color: white;
+  text-shadow: 
+    0 0 0px rgba(241, 78, 149, 0.8),
+    0 0 0px rgba(241, 78, 149, 0.6),
+    0 0 10px rgba(241, 78, 149, 0.4);
+
+  
+}
+/* ===== WEDDING EVENT PREMIUM ===== */
+.wedding-event-section {
+  position: relative;
+  min-height: 100vh;
+  color: white;
+  overflow: hidden;
+}
+
+/* background */
+.event-bg {
+  position: absolute;
+  inset: 0;
+  background: url('hero.jpg') center/cover no-repeat;
+  filter: grayscale(20%) brightness(0.6);
+}
+
+.event-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+/* content */
+.event-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: auto;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* title */
+.event-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+}
+
+.event-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  opacity: 0.6;
+  margin-top: -10px;
+}
+
+/* foto */
+.event-image img {
+  width: 100%;
+  max-width: 500px;
+  margin: 30px auto;
+  display: block;
+}
+
+/* box */
+.event-box {
+  position: relative;
+  max-width: 400px;
+  padding: 20px;
+  margin: 40px 0;
+  text-align: left;
+  
+}
+
+/* kiri */
+.event-box.left {
+  border-left: 2px solid rgba(255,255,255,0.5);
+}
+
+/* kanan */
+.event-box.right {
+  margin-left: auto;
+  text-align: right;
+  border-right: 2px solid rgba(255,255,255,0.5);
+}
+
+/* button */
+.btn-event {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 20px;
+  border: 1px solid white;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-event:hover {
+  background: white;
+  color: black;
+}
+/* ===============================
+   🎬 LUXURY SCROLL ANIMATION
+=============================== */
+
+/* kondisi awal (hidden) */
+.reveal-left,
+.reveal-right {
+  opacity: 1 !important;
+  transform: none !important;
+
+  filter: blur(0px);
+  transition: all 1.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* dari kiri */
+.reveal-left {
+  transform: translateX(-120px) scale(0.95);
+}
+
+/* dari kanan */
+.reveal-right {
+  transform: translateX(120px) scale(0.95);
+}
+
+/* saat muncul */
+.reveal-left.show,
+.reveal-right.show {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  filter: blur(0);
+}
+
+/* delay biar cinematic */
+.reveal-left.show {
+  transition-delay: 0.2s;
+}
+
+.reveal-right.show {
+  transition-delay: 0.4s;
+}
+
+/* =========================
+   SLIDER CLEAN
+========================= */
+.gallery-slider {
+  overflow: hidden;
+  width: 100%;
+  padding: 20px 0;
+}
+
+/* SECTION GALERI FULL SCREEN */
+.galeri-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ position: relative;
+  overflow: hidden;
+
+}
+/* HEADER */
+.galeri-header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+/* TITLE UTAMA */
+.galeri-title {
+  font-size: 2.5rem;
+  font-family: 'Playfair Display', serif;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+/* SCRIPT (EFEK BELAKANG) */
+.galeri-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  color: rgba(255,255,255,0.3);
+
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* SUBTITLE */
+.galeri-subtitle {
+  font-size: 2rem;
+  margin-top: 10px;
+  color: rgba(255,255,255,0.3);
+  font-family: 'Playfair Display', serif;
+  
+}
+.galeri-header {
+  animation: fadeUp 3s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* layer background */
+.galeri-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(0px) brightness(0.1);
+  transform: scale(1.2);
+
+  transition: background-image 0.6s ease, opacity 0.6s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+.galeri-section .container {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  z-index: 2;
+
+}
+
+
+.slider-track {
+  display: flex;
+  gap: 12px;
+  transition: transform 0.6s ease;
+}
+
+/* gambar slider */
+.slider-track img {
+  width: 320px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 14px;
+  flex-shrink: 0;
+  cursor: pointer;
+opacity: 0.5;
+  transform: scale(0.9);
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 2;
+  touch-action: manipulation;
+}
+
+.slider-track img:hover {
+  transform: scale(1.06);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+/* =========================
+   LIGHTBOX (ULTRA SMOOTH)
+========================= */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.4s ease;
+  z-index: 9999;
+}
+
+#lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#lightbox-img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 14px;
+
+  transform: scale(0.85);
+  transition: transform 0.4s ease;
+}
+
+#lightbox.active #lightbox-img {
+  transform: scale(1);
+}
+
+#close {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  font-size: 38px;
+  color: white;
+  cursor: pointer;
+}
+.slider-track img.active {
+  opacity: 1;
+  transform: scale(1.1);
+  z-index: 2;
+}
+.item button {
+  background: rgba(255, 0, 0, 0.2);
+  border: none;
+  color: #ff4d4d;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.item button:active {
+  transform: scale(0.9);
+}
