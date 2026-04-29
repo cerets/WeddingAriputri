@@ -643,7 +643,22 @@ transition: transform 1.2s ease;
 
 /* TEXT */
 
+.event-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: floralwhite;
+}
 
+.event-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  margin-top: -10px;
+  color: gray;
+}
+.alamat-content h2,
+.alamat-content p {
+  text-align: center;
+}
 /* ALAMAT */
 .alamat-text {
   margin-top: 10px;
