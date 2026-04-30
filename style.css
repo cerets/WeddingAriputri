@@ -1128,7 +1128,7 @@ h1, h2 {
 .hero a {
   position: absolute;
   overflow: hidden;
-  top: 70%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
