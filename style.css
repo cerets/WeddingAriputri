@@ -2,6 +2,7 @@
   --pink: #f14e95;
   --bg: #0a0a0a;
   --shadow: 0 2px 3px rgb(0 0 0 / 0.5);
+  --mocha: #3e2c2c;
   --mocha-soft: #5a3e3e;
   --pink-soft: #f8c8dc;
   --white-soft: #fff5f8;
@@ -1127,11 +1128,11 @@ h1, h2 {
 .hero a {
   position: absolute;
   overflow: hidden;
-  top: 50%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-margin-top: 110px;
+
   /* HAPUS background lama */
   background: rgba(255,255,255,0.08);
   color: white;
@@ -1140,16 +1141,13 @@ margin-top: 110px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 
-  border-radius: 16px;
-  padding: 14px 30px;
-
+  border-radius: 12px;
+  padding: 10px 22px;
+font-size: 14px;
   box-shadow:
     0 10px 30px rgba(255,255,255,0.15),
     inset 0 0 12px rgba(255,255,255,0.2);
-
-  transition: all 0.4s ease;
-}
-.hero a {
+transition: all 0.3s ease;
   color: rgba(255,255,255,0.9) !important;
   font-weight: 500;
   letter-spacing: 1px;
