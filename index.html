@@ -258,7 +258,7 @@
       <p>Pukul 10.00 WIB - Selesai</p>
       <p>Gedung Serbaguna</p>
 
-      <a href="#" class="btn-event">location <i class="bi bi-shop"></i></a>
+      <a href="#alamat" class="btn-event">location <i class="bi bi-shop"></i></a>
     </div>
 
   </div>
@@ -334,7 +334,7 @@
          <img src="g7.jpg" alt="">
          <img src="g8.jpg" alt="">
         <img src="g9.jpg" alt="">
-        
+         <img src="g10.jpg" alt="">
 
 
       </div>
@@ -432,6 +432,7 @@
     </form>
     <!-- 🔥 AKHIR FORM -->
 <!-- 🔥 COMMENT SECTION -->
+    <section>
 <div class="comment-wrapper">
 
   <div class="comment-list" id="comment-list"></div>
@@ -443,6 +444,76 @@
 
   <div class="comment-list" id="comment-list"></div>
 
+  
+  <!-- PENUTUP -->
+<section id="closing" class="closing-section">
+
+  <div class="closing-overlay"></div>
+
+  <div class="closing-container">
+
+    <!-- TITLE -->
+    <div class="closing-header reveal">
+      <h2 class="closing-title">Last Moment</h2>
+      <p class="closing-script">See You On Our Big Day</p>
+    </div>
+
+    <!-- GRID GALERI -->
+    <div class="closing-gallery">
+
+  <img src="c1.jpg" class="closing-img large parallax-photo">
+  <img src="c2.jpg" class="closing-img large parallax-photo">
+  <img src="c3.jpg" class="closing-img wide parallax-photo">
+
+  <img src="c4.jpg" class="closing-img large parallax-photo">
+  <img src="c5.jpg" class="closing-img large parallax-photo">
+  <img src="c6.jpg" class="closing-img wide parallax-photo">
+
+  <img src="c7.jpg" class="closing-img wide parallax-photo">
+  <img src="c8.jpg" class="closing-img large parallax-photo">
+  <img src="c9.jpg" class="closing-img large parallax-photo">
+
+  <img src="c10.jpg" class="closing-img large parallax-photo">
+  <img src="c11.jpg" class="closing-img large parallax-photo">
+  <img src="c12.jpg" class="closing-img wide parallax-photo">
+
+  <img src="c13.jpg" class="closing-img large parallax-photo">
+  <img src="c14.jpg" class="closing-img large parallax-photo">
+  <img src="c15.jpg" class="closing-img large parallax-photo">
+
+  <img src="c16.jpg" class="closing-img large parallax-photo">
+<img src="c17.jpg" class="closing-img wide parallax-photo">
+  
+
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="closing-divider">
+      <span><i class="bi bi-heart"></i></span>
+    </div>
+
+    <!-- TEXT -->
+    <div class="closing-text reveal">
+      <p>
+        Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila
+        Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu
+        kepada kami.
+      </p>
+
+      <p>
+        Atas kehadiran dan doanya kami ucapkan terima kasih.
+      </p>
+    </div>
+
+    <!-- NAMA -->
+    <div class="closing-name reveal">
+      Ari & Putri
+    </div>
+
+  </div>
+</section>
+  
+  
      <div id="admin-panel" style="display:none; padding:20px; background:#0f0f0f; color:white;">
 
   <h2>📊 Admin Dashboard Wedding</h2>
@@ -1388,6 +1459,33 @@ updateSlider();
   img.addEventListener("click", () => {
     console.log("klik jalan", i);
   });
+});
+    document.querySelectorAll(".closing-img").forEach(img => {
+  observer.observe(img);
+});
+    if (entry.target.classList.contains("closing-img")) {
+  entry.target.classList.add("show");
+}
+    // ===== PARALLAX PHOTO GALLERY =====
+
+const photos = document.querySelectorAll(".parallax-photo");
+
+window.addEventListener("scroll", () => {
+
+  const scrollY = window.scrollY;
+
+  photos.forEach((photo, index) => {
+
+    // beda speed tiap foto
+    const speed = 0.03 + (index * 0.01);
+
+    // gerak atas bawah
+    const y = scrollY * speed;
+
+    photo.style.transform = `translateY(${y}px)`;
+
+  });
+
 });
     
     </script>
