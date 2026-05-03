@@ -602,9 +602,8 @@ const countdown = setInterval(() => {
      
     
     
-    <!-- buka undangan -->
+// buka undangan
 document.addEventListener("DOMContentLoaded", () => {
-
   // ==============================
   // 🔐 FINGERPRINT (OPEN COVER)
   // ==============================
@@ -1441,29 +1440,31 @@ updateSlider();
   });
 });
     
-    if (entry.target.classList.contains("closing-img")) {
-  entry.target.classList.add("show");
-}
+   
     // ===== PARALLAX PHOTO GALLERY =====
 
 const photos = document.querySelectorAll(".parallax-photo");
 
 window.addEventListener("scroll", () => {
-
   const scrollY = window.scrollY;
 
   photos.forEach((photo, index) => {
 
-    // beda speed tiap foto
-    const speed = 0.03 + (index * 0.01);
+    const rect = photo.getBoundingClientRect();
 
-    // gerak atas bawah
-    const y = scrollY * speed;
+    // 🔥 hanya jalan kalau di layar
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
 
-    photo.style.transform = `translateY(${y}px)`;
+      const speed = 0.02 + (index * 0.005); // DIPERLAMBAT
+      let y = scrollY * speed;
+
+      // 🔥 BATAS MAKSIMAL GERAK
+      y = Math.min(y, 60);
+
+      photo.style.transform = `translateY(${y}px)`;
+    }
 
   });
-
 });
     
     </script>
