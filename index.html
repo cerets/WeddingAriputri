@@ -602,8 +602,9 @@ const countdown = setInterval(() => {
      
     
     
-// buka undangan
+    <!-- buka undangan -->
 document.addEventListener("DOMContentLoaded", () => {
+
   // ==============================
   // 🔐 FINGERPRINT (OPEN COVER)
   // ==============================
@@ -1130,6 +1131,9 @@ function simpanRSVP(nama, status, jumlah, pesan) {
   });
 }
 
+
+
+
 // =======================
 // LOAD USER COMMENT
 // =======================
@@ -1157,10 +1161,19 @@ function loadRSVP() {
         </div>
       `;
 
-      list.prepend(item);
+     list.appendChild(item);
+     
+     setInterval(() => {
+  list.scrollBy({
+    left: 150,
+    behavior: "smooth"
+  });
+}, 4000);
     });
   });
 }
+
+
 
 // =======================
 // ADMIN DASHBOARD
@@ -1440,31 +1453,29 @@ updateSlider();
   });
 });
     
-   
+    if (entry.target.classList.contains("closing-img")) {
+  entry.target.classList.add("show");
+}
     // ===== PARALLAX PHOTO GALLERY =====
 
 const photos = document.querySelectorAll(".parallax-photo");
 
 window.addEventListener("scroll", () => {
+
   const scrollY = window.scrollY;
 
   photos.forEach((photo, index) => {
 
-    const rect = photo.getBoundingClientRect();
+    // beda speed tiap foto
+    const speed = 0.03 + (index * 0.01);
 
-    // 🔥 hanya jalan kalau di layar
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
+    // gerak atas bawah
+    const y = scrollY * speed;
 
-      const speed = 0.02 + (index * 0.005); // DIPERLAMBAT
-      let y = scrollY * speed;
-
-      // 🔥 BATAS MAKSIMAL GERAK
-      y = Math.min(y, 60);
-
-      photo.style.transform = `translateY(${y}px)`;
-    }
+    photo.style.transform = `translateY(${y}px)`;
 
   });
+
 });
     
     </script>
