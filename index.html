@@ -431,6 +431,7 @@
 
     </form>
     <!-- 🔥 AKHIR FORM -->
+	  <div id="rsvp-success"></div>
 <!-- 🔥 COMMENT SECTION -->
     <section>
 <div class="comment-wrapper">
@@ -1115,20 +1116,21 @@ form.addEventListener("submit", function(e) {
   simpanRSVP(nama, status, jumlah, pesan);
 
   // 🔥 animasi
-  btn.classList.add("loading");
-  btn.innerText = "Mengirim...";
+  btnKirim.classList.add("loading");
+  btnKirim.innerText = "Mengirim...";
 
   setTimeout(() => {
-    btn.classList.remove("loading");
-    btn.classList.add("success");
-    btn.innerText = "Terkirim ✔";
+    btnKirim.classList.remove("loading");
+    btnKirim.classList.add("success");
+    btnKirim.innerText = "Terkirim ✔";
 
-    successMsg.classList.add("show");
+    if (successMsg) successMsg.classList.add("show");
 
     setTimeout(() => {
-      successMsg.classList.remove("show");
-      btn.classList.remove("success");
-      btn.innerText = "Kirim Konfirmasi";
+      if (successMsg) successMsg.classList.remove("show");
+
+      btnKirim.classList.remove("success");
+      btnKirim.innerText = "Kirim Konfirmasi";
       form.reset();
     }, 3000);
 
