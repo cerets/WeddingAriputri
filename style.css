@@ -35,17 +35,27 @@
   /* =========================
    CLOSING SECTION
 ========================= */
+#closing {
+  position: relative;
+  top: 0;
+  margin-top: 40px !important;
+}
   .closing-section{
   position: relative;
-  padding: 100px 20px;
+  padding-bottom: 150px;
   overflow: hidden;
   color: white;
+  padding-top: 120px;
+  z-index: 2;
+  min-height: 100vh;
+  clear: both;
+  margin-top: 100px;
 }
 
 .closing-overlay{
   position: absolute;
   inset: 0;
-
+z-index: 0;
   background:
     radial-gradient(circle at bottom,
       rgba(212,175,55,0.08),
@@ -63,7 +73,8 @@
 /* title */
 .closing-header{
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  margin-top: 40px;
 }
 
 .closing-title{
@@ -590,19 +601,27 @@ background: linear-gradient(45deg, #c5a85c, #d9d9d9, #c5a85c)transparent 70%);
   margin-top: 30px;
 }
 .comment-list {
-  margin-top: 40px;
-  text-align: center;
-  color: white;
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 20px;
 }
-
+.comment-list::-webkit-scrollbar {
+  display: none; /* biar clean kayak galeri */
+}
 .comment-item {
+  min-width: 250px;
+  max-width: 280px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+
   background: rgba(255,255,255,0.05);
   padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
 }
-
 .comment-item strong {
   color: white;
 }
@@ -613,7 +632,9 @@ background: linear-gradient(45deg, #c5a85c, #d9d9d9, #c5a85c)transparent 70%);
   color: gold;
   
 }
-
+.comment-item.active {
+  transform: scale(1.05);
+}
 
 /* ===== PROFILE FULL ===== */
 .profile-full {
@@ -1005,7 +1026,7 @@ transition: transform 1.2s ease;
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
-  
+
 }
 
 .profile-section .container {
