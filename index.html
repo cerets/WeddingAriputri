@@ -246,7 +246,7 @@
       <h3>Wedding Ceremony</h3>
       <p class="tanggal">Sabtu, 13 Juni 2026</p>
       <p>Pukul 08.00 WIB</p>
-      <p>Rumah Mempelai Wanita</p>
+      <p>SMAN 24 Garut</p>
 
       <a href="#" class="btn-event">Location <i class="bi bi-shop-window"></i></a>
     </div>
@@ -256,7 +256,7 @@
       <h3>Wedding Reception</h3>
       <p class="tanggal">Sabtu, 13 Juni 2026</p>
       <p>Pukul 10.00 WIB - Selesai</p>
-      <p>Gedung Serbaguna</p>
+      <p>SMAN 24 Garut</p>
 
       <a href="#alamat" class="btn-event">location <i class="bi bi-shop"></i></a>
     </div>
@@ -431,9 +431,6 @@
 
     </form>
     <!-- 🔥 AKHIR FORM -->
-    <div id="rsvp-success" class="success-msg">
-  Konfirmasi berhasil dikirim
-</div>
 <!-- 🔥 COMMENT SECTION -->
     <section>
 <div class="comment-wrapper">
@@ -442,10 +439,6 @@
 
   </div>
 </section>
-<!-- 🔥 COMMENT SECTION -->
-<div class="comment-wrapper">
-
-  <div class="comment-list" id="comment-list"></div>
 
   
   <!-- PENUTUP -->
@@ -538,30 +531,7 @@
       <option value="Hadir">Hadir</option>
       <option value="Tidak Hadir">Tidak Hadir</option>
     </select>
-    <h3>➕ Tambah Tamu</h3>
 
-<div class="guest-form">
-
-  <input
-    type="text"
-    id="new-guest"
-    placeholder="Masukkan nama tamu"
-  >
-
-  <button onclick="tambahTamu()">
-    Tambah
-  </button>
-
-</div>
-
-<hr>
-
-<div id="guest-links"></div>
-    
-    
-<h3>📨 List Undangan</h3>
-
-<div id="guest-links"></div>
     <button onclick="exportExcel()">📥 Export Excel</button>
   </div>
 
@@ -1104,32 +1074,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 console.log("Firebase connect:", db);
-const daftarTamu = [
-  "Adit",
-  "Ramdhan",
-  "Arif",
-  "Aril"
-];
-    
-    let daftarTamu = [];
-    function tambahTamu() {
 
-  const input = document.getElementById("new-guest");
-
-  const nama = input.value.trim();
-
-  if (!nama) {
-    alert("Masukkan nama tamu");
-    return;
-  }
-
-  daftarTamu.push(nama);
-
-  renderGuestLinks();
-
-  input.value = "";
-
-}
 // =======================
 // GLOBAL STATE
 // =======================
@@ -1148,7 +1093,7 @@ function isAdmin() {
 // RSVP SUBMIT
 // =======================
 const form = document.querySelector(".rsvp-form");
-const btn = document.querySelector(".btn-kirim");
+const btn-kirim = document.querySelector(".btn-kirim");
 const successMsg = document.getElementById("rsvp-success");
 
 form.addEventListener("submit", function(e) {
@@ -1296,72 +1241,6 @@ function renderList(dataList) {
   });
 }
 
-    
-    function renderGuestLinks() {
-
-  const container = document.getElementById("guest-links");
-
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  daftarTamu.forEach((nama, index) => {
-
-    const link =
-      `${window.location.origin}${window.location.pathname}?to=${encodeURIComponent(nama)}`;
-
-    const item = document.createElement("div");
-
-    item.style.padding = "15px";
-    item.style.marginBottom = "10px";
-    item.style.borderRadius = "14px";
-    item.style.background = "rgba(255,255,255,.05)";
-
-    item.innerHTML = `
-      <strong>${nama}</strong>
-
-      <input
-        type="text"
-        value="${link}"
-        readonly
-        style="
-          width:100%;
-          margin:10px 0;
-          padding:10px;
-          border-radius:10px;
-        "
-      >
-
-      <button onclick="copyLink('${link}')">
-        📋 Copy
-      </button>
-
-      <button onclick="hapusTamu(${index})">
-        🗑 Hapus
-      </button>
-    `;
-
-    container.appendChild(item);
-
-  });
-
-}
-    function copyLink(link) {
-
-  navigator.clipboard.writeText(link);
-
-  alert("Link berhasil disalin ✨");
-
-}
-    
-    function hapusTamu(index) {
-
-  daftarTamu.splice(index, 1);
-
-  renderGuestLinks();
-
-}
-    
 // =======================
 // DELETE DATA
 // =======================
@@ -1396,7 +1275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (panel) panel.style.display = "block";
 
     loadAdminDashboard();
-renderGuestLinks();
+
     // SEARCH
     const search = document.getElementById("search");
     if (search) {
