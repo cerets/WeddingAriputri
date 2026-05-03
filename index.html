@@ -431,7 +431,7 @@
 
     </form>
     <!-- 🔥 AKHIR FORM -->
-	  <div id="rsvp-success"></div>
+    <div id="rsvp-success"></div>
 <!-- 🔥 COMMENT SECTION -->
     <section>
 <div class="comment-wrapper">
@@ -957,28 +957,10 @@ function startTyping(el) {
   type();
 }
 </script>
-      
-<script>
-window.addEventListener("load", () => {
-  const parts = [
-    ".part-a",
-    ".part-ri",
-    ".part-and",
-    ".part-p",
-    ".part-utri"
-  ];
-
-  parts.forEach((selector, i) => {
-    setTimeout(() => {
-      document.querySelector(selector).classList.add("show");
-    }, i * 500);
-  });
-});
+     
 
     
-    
-    
-    </script>
+   
     
 
     <script>
@@ -1458,9 +1440,7 @@ updateSlider();
     console.log("klik jalan", i);
   });
 });
-    document.querySelectorAll(".closing-img").forEach(img => {
-  observer.observe(img);
-});
+    
     if (entry.target.classList.contains("closing-img")) {
   entry.target.classList.add("show");
 }
