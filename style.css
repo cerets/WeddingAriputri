@@ -1115,7 +1115,7 @@ body {
   align-items: center;
 
   font-size: 22px;
-  color: #f14e95;
+  color: #fff5cc;
   cursor: pointer;
 
   box-shadow: 0 0 20px rgba(241,78,149,0.4);
@@ -1257,6 +1257,7 @@ body:not(.locked) .assistive-touch {
 
 
 .hero-date {
+  font-family: cursive;
   font-size: 16px;
   letter-spacing: 2px;
   opacity: 0.12;
@@ -1264,30 +1265,6 @@ body:not(.locked) .assistive-touch {
   color: aliceblue;
 }
 
-.btn-open {
-  display: block;
-  margin: 120px;
-  position: relative;
-  padding: 50px 50px;
-  border-radius: 16px;
-
-  background: linear-gradient(45deg, #d4af37, #fff, #d4af37);
-  background-size: 200% 200%;
-
-  color: #1a1a1a;
-  font-weight: 600;
-  letter-spacing: 1px;
-
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-
-  transition: all 0.5s ease;
-
-  box-shadow:
-    0 8px 25px rgba(212,175,55,0.4),
-    inset 0 0 10px rgba(255,255,255,0.0);
-}
 /* HOVER → TRANSPARAN PUTIH */
 .btn-open:hover {
   background: rgba(255,255,255,0.08); /* transparan putih */
@@ -1340,15 +1317,27 @@ h1, h2 {
 }
 
 .navbar-brand {
-  color: #ff6fa5; /* pink */
+  color: #fff5cc; /* pink */
   text-shadow: 0 0 5px white, 0 0 10px rgba(255,255,255,0.7);
 }
-.hero h1{
-  font-family: Great Vibes, cursive;
+.hero h1 {
+  font-family: 'Great Vibes', cursive;
   font-size: 7rem;
-  text-shadow: var(--shadow);
-  
-  
+
+  /* 🔥 GOLD GRADIENT */
+  background: linear-gradient(45deg, #d4af37, #fff5cc, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* 🔥 SHADOW GOLD */
+  text-shadow:
+    0 0 5px rgba(212,175,55,0.6),
+    0 0 15px rgba(212,175,55,0.5),
+    0 0 30px rgba(212,175,55,0.4),
+    0 5px 10px rgba(0,0,0,0.6);
+ letter-spacing: 2px;
+filter: drop-shadow(0 0 25px rgba(212,175,55,0.4));
+ 
 }
 
 
@@ -1362,8 +1351,9 @@ h1, h2 {
 .hero a {
   position: absolute;
   overflow: hidden;
-  top: 65%;
   left: 50%;
+bottom: 150px; /* 🔥 fix di bawah */
+  
   transform: translate(-50%, -50%);
   z-index: 10;
 
@@ -1383,18 +1373,19 @@ font-size: 14px;
     inset 0 0 12px rgba(255,255,255,0.2);
 transition: all 0.3s ease;
   color: rgba(255,255,255,0.9) !important;
-  font-weight: 500;
-  letter-spacing: 1px;
+  font-weight: 400;
+  letter-spacing: 0px;
 
   text-shadow:
     0 0 8px rgba(255,255,255,0.5),
     0 0 20px rgba(255,255,255,0.2);
-  box-shadow: 
-    0 0 0px rgba(241, 78, 149, 0.8),
-    0 0 0px rgba(241, 78, 149, 0.6),
-    0 0 10px rgba(241, 78, 149, 0.4);
+  text-shadow:
+    0 0 5px rgba(212,175,55,0.6),
+    0 0 15px rgba(212,175,55,0.5),
+    0 0 30px rgba(212,175,55,0.4),
+ 
 
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(212,175,55,0.6);
   color: white;
 }
 /* 🌊 RIPPLE GOLD */
@@ -1405,7 +1396,7 @@ transition: all 0.3s ease;
   pointer-events: none;
 
   background: radial-gradient(circle,
-    rgba(241, 78, 149, 0.8) 0%,
+    rgba(212,175,55,0.6), 0%,
     rgba(255,255,255,0.9) 40%,
     transparent 70%
   );
@@ -1486,7 +1477,7 @@ transition: all 0.3s ease;
   transform: translate(-50%, -45%) scale(0.92);
   box-shadow:
     inset 0 4px 10px rgba(0,0,0,0.5),
-    0 0 15px rgba(255, 77, 166, 0.6);
+    0 0 15px rgba(212,175,55,0.4);
 }
 
 
@@ -1510,59 +1501,65 @@ transition: all 0.3s ease;
   height:100px;
   background: linear-gradient(to bottom, transparent, #0a0a0a);
 }
+/* CONTAINER COUNTDOWN */
+#countdown {
+  position: absolute;
+  bottom: -300px; /* 🔥 kasih jarak dari tombol */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
 
+  width: 100%;
+  max-width: 400px;
+  padding: 0 10px;
+  z-index: 5;
+}
+
+/* BOX JADI BULAT */
 .time-box {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%; /* 🔥 ini kunci bulat */
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-box-shadow: 
-    0 0 0px rgba(241, 78, 149, 0.8),
-    0 0 0px rgba(241, 78, 149, 0.6),
-    0 0 10px rgba(241, 78, 149, 0.4);
 
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.3);
+
   color: white;
+  text-align: center;
+
+  box-shadow:
+    0 0 15px rgba(255,215,0,0.4);
+    inset 0 0 10px rgba(255,255,255,0.1);
+
+  transition: 0.3s;
 }
 
-
+/* ANGKA */
 .time-box span {
-  font-size: 1.3rem;   /* lebih besar */
-  font-weight: 600;    /* lebih tebal */
-  line-height: 1;
-  text-shadow: var(--shadow);
+  font-size: 1.6rem;
+  font-weight: bold;
 }
 
-
-
-
-
-#countdown {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 385px;
-  flex-wrap: wrap; /* biar rapi di HP */
+/* TEXT */
+.time-box small {
+  font-size: 0.67rem;
+  opacity: 0.7;
 }
-
-
-
-
-
-.hero main {
-  position: relative;
-  margin-top: -40px;
-  z-index: 1;
-}
-
-
 /*media query*/
+
+
+
 /*laptop*/
 @media (max-width: 992px) {
   html{
@@ -1687,7 +1684,7 @@ box-shadow:
 
 .gift-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 20px rgba(241,78,149,0.3);
+  box-shadow: 0 0 20px rgba(212,175,55,0.4);
 }
 
 /* rekening */
