@@ -115,7 +115,7 @@
     </h1>
 
     <p class="hero-date cinematic">
-      13 Juni 2026
+     Sabtu 13 Juni 2026
     </p>
 
   
@@ -144,8 +144,7 @@
 </a>
 </section>
     
-        </main>
-    </section>
+
     
     
     
@@ -375,8 +374,8 @@
 
       <!-- BANK 1 -->
       <div class="gift-item">
-        <h3>BCA</h3>
-        <p class="rekening" id="rek1">1234567890</p>
+        <h3>DANA</h3>
+        <p class="rekening" id="rek1">082118366357</p>
         <p class="an">a.n. Ari</p>
         <button onclick="copyRek('rek1')" class="btn-copy">
           Salin Rekening
@@ -385,8 +384,8 @@
 
       <!-- BANK 2 -->
       <div class="gift-item">
-        <h3>Mandiri</h3>
-        <p class="rekening" id="rek2">0987654321</p>
+        <h3>Dana</h3>
+        <p class="rekening" id="rek2">083821487554</p>
         <p class="an">a.n. Putri</p>
         <button onclick="copyRek('rek2')" class="btn-copy">
           Salin Rekening
@@ -506,6 +505,7 @@
     <div class="closing-name reveal">
       Ari & Putri
     </div>
+   
 
   </div>
 </section>
@@ -1131,9 +1131,6 @@ function simpanRSVP(nama, status, jumlah, pesan) {
   });
 }
 
-
-
-
 // =======================
 // LOAD USER COMMENT
 // =======================
@@ -1161,19 +1158,10 @@ function loadRSVP() {
         </div>
       `;
 
-     list.appendChild(item);
-     
-     setInterval(() => {
-  list.scrollBy({
-    left: 150,
-    behavior: "smooth"
-  });
-}, 4000);
+      list.prepend(item);
     });
   });
 }
-
-
 
 // =======================
 // ADMIN DASHBOARD
