@@ -6,6 +6,8 @@
   --mocha-soft: #5a3e3e;
   --pink-soft: #f8c8dc;
   --white-soft: #fff5f8;
+
+}
   
   /* PARALLAX PHOTO */
 .parallax-photo{
@@ -275,7 +277,7 @@ z-index: 9;
 
   text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
-.* {
+* {
   max-width: 100%;
 }
 /* CONTAINER */
