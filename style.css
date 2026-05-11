@@ -275,9 +275,6 @@ z-index: 9;
 
   text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
-* {
-  max-width: 100%;
-}
 /* CONTAINER */
 #admin-panel {
   background: linear-gradient(180deg, #0f0f0f, #000);
@@ -2439,61 +2436,68 @@ opacity: 0.5;
 html,
 body {
   width: 100%;
-  overflow-x: hidden !important;
-  position: relative;
+  overflow-x: clip;
 }
 
-/* semua element aman */
-* {
-  box-sizing: border-box;
+/* semua section aman */
+section {
+  overflow: hidden;
+}
+
+/* gambar aman */
+img {
   max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-/* cegah element absolute keluar layar */
-section,
-div,
-img,
-iframe {
-  max-width: 100%;
-}
+/* HERO MOBILE */
+@media (max-width:768px){
 
-/* HERO TITLE MOBILE */
-@media (max-width: 768px) {
-
-  .hero h1 {
-    font-size: 4.2rem !important;
+  .hero h1{
+    font-size: 4.3rem;
     line-height: 1;
-    word-break: break-word;
   }
 
-  .cover-title {
-    font-size: 3.5rem !important;
+  .cover-title{
+    font-size: 3.5rem;
   }
 
-  #countdown {
+  #countdown{
+    width: calc(100% - 20px);
     gap: 8px;
-    max-width: 100%;
-    padding: 0 12px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  .time-box {
-    width: 65px;
-    height: 65px;
+  .time-box{
+    width: 62px;
+    height: 62px;
   }
 
-  /* FIX translate yang sering bikin overflow */
-  .profile-full,
-  .profile-full img,
-  .profile-content,
-  .closing-gallery,
+  /* FIX translate overflow */
+  .profile-full.active{
+    transform: none !important;
+  }
+
+  .profile-full.ari.active{
+    transform: none !important;
+  }
+
+  .profile-full.putri.active{
+    transform: none !important;
+  }
+
+  /* slider */
   .gallery-slider,
-  .slider-track {
-    overflow-x: hidden !important;
+  .slider-track{
+    overflow: hidden;
   }
 
-  /* gambar tidak melebar */
-  img {
-    display: block;
+  /* closing gallery */
+  .closing-gallery{
+    column-count: 2;
+    column-gap: 8px;
   }
 
 }
