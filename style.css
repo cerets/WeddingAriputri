@@ -275,7 +275,7 @@ z-index: 9;
 
   text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
-.* {
+* {
   max-width: 100%;
 }
 /* CONTAINER */
@@ -2431,4 +2431,69 @@ opacity: 0.5;
 
 .item button:active {
   transform: scale(0.9);
+}
+/* =========================
+   FIX OVERFLOW MOBILE
+========================= */
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden !important;
+  position: relative;
+}
+
+/* semua element aman */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* cegah element absolute keluar layar */
+section,
+div,
+img,
+iframe {
+  max-width: 100%;
+}
+
+/* HERO TITLE MOBILE */
+@media (max-width: 768px) {
+
+  .hero h1 {
+    font-size: 4.2rem !important;
+    line-height: 1;
+    word-break: break-word;
+  }
+
+  .cover-title {
+    font-size: 3.5rem !important;
+  }
+
+  #countdown {
+    gap: 8px;
+    max-width: 100%;
+    padding: 0 12px;
+  }
+
+  .time-box {
+    width: 65px;
+    height: 65px;
+  }
+
+  /* FIX translate yang sering bikin overflow */
+  .profile-full,
+  .profile-full img,
+  .profile-content,
+  .closing-gallery,
+  .gallery-slider,
+  .slider-track {
+    overflow-x: hidden !important;
+  }
+
+  /* gambar tidak melebar */
+  img {
+    display: block;
+  }
+
 }
