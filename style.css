@@ -275,6 +275,9 @@ z-index: 9;
 
   text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
+.* {
+  max-width: 100%;
+}
 /* CONTAINER */
 #admin-panel {
   background: linear-gradient(180deg, #0f0f0f, #000);
@@ -2428,76 +2431,4 @@ opacity: 0.5;
 
 .item button:active {
   transform: scale(0.9);
-}
-/* =========================
-   FIX OVERFLOW MOBILE
-========================= */
-
-html,
-body {
-  width: 100%;
-  overflow-x: clip;
-}
-
-/* semua section aman */
-section {
-  overflow: hidden;
-}
-
-/* gambar aman */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* HERO MOBILE */
-@media (max-width:768px){
-
-  .hero h1{
-    font-size: 4.3rem;
-    line-height: 1;
-  }
-
-  .cover-title{
-    font-size: 3.5rem;
-  }
-
-  #countdown{
-    width: calc(100% - 20px);
-    gap: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .time-box{
-    width: 62px;
-    height: 62px;
-  }
-
-  /* FIX translate overflow */
-  .profile-full.active{
-    transform: none !important;
-  }
-
-  .profile-full.ari.active{
-    transform: none !important;
-  }
-
-  .profile-full.putri.active{
-    transform: none !important;
-  }
-
-  /* slider */
-  .gallery-slider,
-  .slider-track{
-    overflow: hidden;
-  }
-
-  /* closing gallery */
-  .closing-gallery{
-    column-count: 2;
-    column-gap: 8px;
-  }
-
 }
