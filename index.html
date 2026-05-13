@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Ari &  putri wedding</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -498,6 +498,8 @@
     <div class="closing-name reveal">
       Ari & Putri
     </div>
+    
+    <p>created by : Ariyufiky©</p>
    
 
   </div>
@@ -1461,6 +1463,53 @@ window.addEventListener("scroll", () => {
     
     </script>
     
-    
+    <script>
+const commentList = document.querySelector('.comment-list');
+
+let autoScroll = 0;
+let isDown = false;
+
+function autoSlideComments() {
+
+  if (isDown) return;
+
+  autoScroll += 0.5;
+
+  commentList.scrollTo({
+    left: autoScroll,
+    behavior: 'smooth'
+  });
+
+  // ulang dari awal
+  if (
+    autoScroll >=
+    commentList.scrollWidth -
+    commentList.clientWidth
+  ) {
+    autoScroll = 0;
+  }
+
+}
+
+setInterval(autoSlideComments, 10);
+
+/* pause saat disentuh */
+commentList.addEventListener('touchstart', () => {
+  isDown = true;
+});
+
+commentList.addEventListener('touchend', () => {
+  isDown = false;
+});
+
+/* desktop hover pause */
+commentList.addEventListener('mouseenter', () => {
+  isDown = true;
+});
+
+commentList.addEventListener('mouseleave', () => {
+  isDown = false;
+});
+</script>
   </body>
 </html>
