@@ -6,7 +6,8 @@
   --mocha-soft: #5a3e3e;
   --pink-soft: #f8c8dc;
   --white-soft: #fff5f8;
-  
+}
+
   /* PARALLAX PHOTO */
 .parallax-photo{
   will-change: transform;
@@ -138,7 +139,7 @@ z-index: 0;
 
 /* hover cinematic */
 .closing-img:hover{
-  transform: scale(1.03);
+  transform: scale(1.1);
   filter:
     brightness(1.05)
     contrast(1.05);
@@ -221,8 +222,6 @@ z-index: 0;
   }
 
 }
-  
-  
   
   
   
@@ -407,7 +406,7 @@ z-index: 9;
   position: fixed;
   inset: 0;
   background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)),
-              url('cover.jpg');
+              url('cover.webp');
   background-size: cover;
   background-position: center;
   z-index: 9999;
@@ -447,11 +446,11 @@ z-index: 9;
   font-family: serif;
 }
 #guest-name {
-   font-size: 2rem;
+   font-size: 1.5rem;
   opacity: 0.8;
-  margin-top: 15px;
+  margin-top: 50px;
   
-  font-family:'Playfair Display',serif;
+  font-family:'Times New Roman',serif;
   color: white;
   text-shadow: 
     0 0 0px rgba(241, 78, 149, 0.8),
@@ -1042,7 +1041,7 @@ body {
   font-family: 'work sans', sans-serif;
  opacity: 1;
   overflow-y: scroll;
-  background: url('hero.jpg') no-repeat center center;
+  background: url('hero.webp') no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
 }
@@ -1187,7 +1186,7 @@ body:not(.locked) .assistive-touch {
 .hero {
   position: relative;
   overflow: hidden;
-  height: 100vh;
+  min-height:100svh;
   
 }
 
@@ -1214,19 +1213,40 @@ body:not(.locked) .assistive-touch {
   position: relative;
   z-index: 2;
 }
-.hero-content {
+.hero-content{
   position: relative;
-  z-index: 2;}
+  z-index: 2;
 
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+padding-top: 120px;
+  min-height:100svh;
+}
 .hero-subtitle {
   font-size: 14px;
   letter-spacing: 4px;
   text-transform: uppercase;
   opacity: 0.7;
-  margin-bottom: 300px;
   color: #fff;
-  
+
+  margin-bottom: 20px;
+  margin-top: 0px;
 }
+
+
+
+@media (max-width:576px){
+
+  .hero-content{
+    justify-content:flex-start;
+    padding-top: 40px;
+  }
+
+}
+
+
 .bi bi-envelope-open {
   z-index: 9;
 }
@@ -1322,7 +1342,9 @@ h1, h2 {
 }
 .hero h1 {
   font-family: 'Great Vibes', cursive;
-  font-size: 7rem;
+  
+  font-size: clamp(5rem, 16vw, 9rem);
+
 
   /* 🔥 GOLD GRADIENT */
   background: linear-gradient(45deg, #d4af37, #fff5cc, #d4af37);
@@ -1353,7 +1375,8 @@ filter: drop-shadow(0 0 25px rgba(212,175,55,0.4));
   overflow: hidden;
   left: 50%;
 bottom: 150px; /* 🔥 fix di bawah */
-  
+max-width: 90%;
+  white-space: nowrap;
   transform: translate(-50%, -50%);
   z-index: 10;
 
@@ -1502,27 +1525,34 @@ transition: all 0.3s ease;
   background: linear-gradient(to bottom, transparent, #0a0a0a);
 }
 /* CONTAINER COUNTDOWN */
-#countdown {
+#countdown{
   position: absolute;
-  bottom: -300px; /* 🔥 kasih jarak dari tombol */
+
   left: 50%;
+  bottom: 230px;
+
   transform: translateX(-50%);
-  
+
   display: flex;
-  gap: 14px;
   justify-content: center;
   align-items: center;
 
-  width: 100%;
-  max-width: 400px;
-  padding: 0 10px;
+  gap: 10px;
+
+  width: max-content;
+  max-width: 95%;
+
   z-index: 5;
 }
 
 /* BOX JADI BULAT */
 .time-box {
-  width: 70px;
-  height: 70px;
+ 
+  width: 62px;
+  height: 62px;
+
+  flex-shrink: 0;
+
   border-radius: 50%; /* 🔥 ini kunci bulat */
 
   display: flex;
@@ -1544,16 +1574,34 @@ transition: all 0.3s ease;
 
   transition: 0.3s;
 }
+@media (max-width: 576px){
 
+  #countdown{
+    bottom: 210px;
+    gap: 8px;
+  }
+
+  .time-box{
+    width: 58px;
+    height: 58px;
+  }
+
+  .hero a{
+    bottom: 110px;
+    font-size: 13px;
+    padding: 10px 18px;
+  }
+
+}
 /* ANGKA */
 .time-box span {
-  font-size: 1.6rem;
+  font-size: 18px;
   font-weight: bold;
 }
 
 /* TEXT */
 .time-box small {
-  font-size: 0.67rem;
+  font-size: 11px;
   opacity: 0.7;
 }
 /*media query*/
@@ -1883,7 +1931,7 @@ transition: all 0.3s ease;
   min-height: 100vh; /* minimal 1 layar */
   padding-top: 80px;
   /* background foto */
-  background: url('bg-doa.jpg') center/cover no-repeat;
+  background: url('doa.webp') center/cover no-repeat;
 }
 
 
@@ -2325,14 +2373,23 @@ margin-top: 20px;
   background-size: cover;
   background-position: center;
 
-  filter: blur(0px) brightness(0.1);
+  filter: blur(0px) brightness(0.35);
   transform: scale(1.2);
 
-  transition: background-image 0.6s ease, opacity 0.6s ease;
+  transition: background-image 0.5s ease, opacity 0.8s ease;
   z-index: 0;
   pointer-events: none;
+  animation: galeriZoom 14s ease-in-out infinite alternate;
 }
 
+@keyframes galeriZoom {
+  from {
+    transform: scale(1.15);
+  }
+  to {
+    transform: scale(1.3);
+  }
+}
 
 .galeri-section .container {
   width: 100%;
@@ -2432,3 +2489,10 @@ opacity: 0.5;
 .item button:active {
   transform: scale(0.9);
 }
+body{
+  overflow-x:hidden;
+}
+html{
+  overflow-x:hidden;
+}
+
