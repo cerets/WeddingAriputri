@@ -967,7 +967,7 @@ function renderGuests() {
 
     item.innerHTML = `
       <div>
-        <strong>${index + 1}. ${guest-name}</strong><br>
+        <strong>${index + 1}. ${guest.name}</strong><br>
         <small>🆔 ${guest.id}</small><br>
         <small>📱 ${guest.phone}</small><br>
         <small style="word-break: break-all;">${link}</small>
@@ -1002,15 +1002,14 @@ function getGuestName() {
   if (!guestId) return "Tamu Undangan";
 
   // Ambil data tamu dari localStorage
-  const guestData =
-    JSON.parse(localStorage.getItem("guestData")) || [];
+  const guestData = JSON.parse(localStorage.getItem("guestData")) || [];
 
   // Cari tamu berdasarkan ID
   const guest = guestData.find(item => item.id === guestId);
 
   // Jika ditemukan, tampilkan nama
-  if (guest && guest-name) {
-    return guest-name;
+  if (guest && guest.name) {
+    return guest.name;
   }
 
   // Jika ID tidak ditemukan
@@ -1045,7 +1044,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const guestElement = document.getElementById("guest-name");
   if (guestElement) {
     setTimeout(() => {
-      typeEffect(guestElement, guestName);
+      typeEffect(guestElement, guestname);
     }, 1000);
   }
 
