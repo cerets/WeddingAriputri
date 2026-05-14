@@ -1044,7 +1044,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const guestElement = document.getElementById("guest-name");
   if (guestElement) {
     setTimeout(() => {
-      typeEffect(guestElement, guestname);
+      typeEffect(guestElement, guestName);
     }, 1000);
   }
 
@@ -1178,24 +1178,22 @@ window.addEventListener("scroll", () => {
       
 let ticking = false;
 
-  if (!ticking) {
-    window.requestAnimationFrame(() => {
-      const hero = document.querySelector(".hero-bg");
-      if (!hero) return;
+  const hero = document.querySelector(".hero");
 
-      const scrollY = window.scrollY;
+if (hero) {
+  let ticking = false;
 
-      hero.style.backgroundPositionY = scrollY * 0.5 + "px";
-
-      const scale = 1.05 + scrollY * 0.0003;
-      hero.style.transform = `scale(${scale})`;
-
-      ticking = false;
-    });
-
-    ticking = true;
-  }
-});
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        hero.style.backgroundPositionY = `${scrollY * 0.5}px`;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+}
 </script>
      <script>
 
