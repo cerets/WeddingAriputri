@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">  
-	  <!-- Open Graph Meta Tags -->
+<!-- Open Graph Meta Tags -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ari & Putri Wedding">
 <meta property="og:description" content="Kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.">
-<meta property="og:image" content="https://cerets.github.io/WeddingAriputri/open.jpg">
+<meta property="og:image" content="https://cerets.github.io/WeddingAriputri/hero.jpg">
 <meta property="og:url" content="https://cerets.github.io/WeddingAriputri/">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ari & Putri Wedding">
 <meta name="twitter:description" content="Undangan Pernikahan Ari & Putri">
-<meta name="twitter:image" content="https://cerets.github.io/WeddingAriputri/open.jpg">
+<meta name="twitter:image" content="https://cerets.github.io/WeddingAriputri/hero.jpg">
+    <meta charset="utf-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Ari &  putri wedding</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -542,7 +542,15 @@
 
     <button onclick="exportExcel()">📥 Export Excel</button>
   </div>
+<h3>📋 Daftar Tamu Undangan</h3>
 
+<div class="guest-form">
+  <input type="text" id="guestInput" placeholder="Nama tamu">
+  <input type="text" id="guestPhone" placeholder="Nomor WhatsApp (628xxxx)">
+  <button onclick="addGuest()">Tambah Tamu</button>
+</div>
+
+<div id="guestList"></div>
   <!-- LIST -->
   <div id="admin-list"></div>
 
@@ -609,7 +617,7 @@ const countdown = setInterval(() => {
      
     
     
-    <!-- buka undangan -->
+   
 document.addEventListener("DOMContentLoaded", () => {
 
   // ==============================
@@ -819,26 +827,206 @@ if (music) {
   });
 
 });
-  /* ===============================
-   👤 GUEST NAME (PERSONAL LINK)
+ 
+ 
+ // ======================================================
+// 📋 DAFTAR TAMU DENGAN ID OTOMATIS
+// ======================================================
+
+// ======================================================
+// 📋 DAFTAR TAMU DENGAN ID OTOMATIS
+// ======================================================
+
+let guestData = JSON.parse(localStorage.getItem("guestData")) || [];
+
+// URL website utama (bukan bit.ly)
+const BASE_URL = "https://cerets.github.io/WeddingAriputri/";
+
+// ======================================================
+// SIMPAN DATA
+// ======================================================
+function saveGuests() {
+  localStorage.setItem("guestData", JSON.stringify(guestData));
+}
+
+// ======================================================
+// GENERATE ID OTOMATIS
+// INV001, INV002, INV003, dst.
+// ======================================================
+function generateGuestId() {
+  const lastNumber = guestData.length + 1;
+  return "INV" + String(lastNumber).padStart(3, "0");
+}
+
+// ======================================================
+// GENERATE LINK
+// https://cerets.github.io/WeddingAriputri/?id=INV001
+// ======================================================
+function generateLink(guest) {
+  return `${BASE_URL}?id=${guest.id}`;
+}
+
+// ======================================================
+// TAMBAH TAMU
+// ======================================================
+function addGuest() {
+  const nameInput = document.getElementById("guestInput");
+  const phoneInput = document.getElementById("guestPhone");
+
+  const name = nameInput.value.trim();
+  const phone = phoneInput.value.trim();
+
+  if (!name || !phone) {
+    alert("Nama dan nomor WhatsApp wajib diisi.");
+    return;
+  }
+
+  // Cek nomor WhatsApp sudah ada
+  const exists = guestData.some(guest => guest.phone === phone);
+  if (exists) {
+    alert("Nomor WhatsApp sudah terdaftar.");
+    return;
+  }
+
+  const newGuest = {
+    id: generateGuestId(),
+    name: name,
+    phone: phone
+  };
+
+  guestData.push(newGuest);
+
+  saveGuests();
+  renderGuests();
+
+  nameInput.value = "";
+  phoneInput.value = "";
+  nameInput.focus();
+}
+
+// ======================================================
+// HAPUS TAMU
+// ======================================================
+function deleteGuest(index) {
+  if (!confirm("Hapus tamu ini?")) return;
+
+  guestData.splice(index, 1);
+  saveGuests();
+  renderGuests();
+}
+
+// ======================================================
+// COPY LINK
+// ======================================================
+function copyLink(link) {
+  navigator.clipboard.writeText(link)
+    .then(() => alert("Link berhasil disalin."));
+}
+
+// ======================================================
+// KIRIM WHATSAPP
+// ======================================================
+function sendWhatsApp(guest) {
+  const link = generateLink(guest);
+
+  const message =
+    `Assalamu'alaikum Wr. Wb.\n\n` +
+    `Dengan penuh rasa syukur dan kebahagiaan, kami mengundang ` +
+    `Bapak/Ibu/Saudara/i *${guest.name}* untuk menghadiri acara pernikahan kami.\n\n` +
+    `Berikut link undangan digital kami:\n${link}\n\n` +
+    `Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila ` +
+    `Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.\n\n` +
+    `Wassalamu'alaikum Wr. Wb.\n\n` +
+    `Hormat kami,\nAri & Putri`;
+
+  const waUrl =
+    `https://wa.me/${guest.phone}?text=${encodeURIComponent(message)}`;
+
+  window.open(waUrl, "_blank");
+}
+
+// ======================================================
+// RENDER LIST TAMU
+// ======================================================
+function renderGuests() {
+  const guestList = document.getElementById("guestList");
+  if (!guestList) return;
+
+  guestList.innerHTML = "";
+
+  if (guestData.length === 0) {
+    guestList.innerHTML = "<p>Belum ada tamu.</p>";
+    return;
+  }
+
+  guestData.forEach((guest, index) => {
+    const link = generateLink(guest);
+
+    const item = document.createElement("div");
+    item.className = "guest-item";
+
+    item.innerHTML = `
+      <div>
+        <strong>${index + 1}. ${guest.name}</strong><br>
+        <small>🆔 ${guest.id}</small><br>
+        <small>📱 ${guest.phone}</small><br>
+        <small style="word-break: break-all;">${link}</small>
+      </div>
+
+      <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+        <button onclick="copyLink('${link}')">📋 Copy</button>
+        <button onclick="sendWhatsApp(guestData[${index}])">💬 Kirim WA</button>
+        <button onclick="deleteGuest(${index})">🗑️ Hapus</button>
+      </div>
+    `;
+
+    guestList.appendChild(item);
+  });
+}
+
+// ======================================================
+// LOAD SAAT HALAMAN DIBUKA
+// ======================================================
+document.addEventListener("DOMContentLoaded", renderGuests);
+/* ===============================
+   👤 GUEST NAME (PERSONAL LINK BY ID)
+   URL contoh:
+   https://cerets.github.io/WeddingAriputri/?id=INV001
 =============================== */
 
 function getGuestName() {
   const params = new URLSearchParams(window.location.search);
-  let name = params.get("to");
+  const guestId = params.get("id");
 
-  if (!name) return "Tamu Undangan";
+  // Jika tidak ada ID
+  if (!guestId) return "Tamu Undangan";
 
-  return name.replace(/\+/g, " ");
+  // Ambil data tamu dari localStorage
+  const guestData =
+    JSON.parse(localStorage.getItem("guestData")) || [];
+
+  // Cari tamu berdasarkan ID
+  const guest = guestData.find(item => item.id === guestId);
+
+  // Jika ditemukan, tampilkan nama
+  if (guest && guest.name) {
+    return guest.name;
+  }
+
+  // Jika ID tidak ditemukan
+  return "Tamu Undangan";
 }
 
+/* ===============================
+   ✨ TYPE EFFECT
+=============================== */
 function typeEffect(element, text, speed = 70) {
   let i = 0;
-  element.innerHTML = "";
+  element.textContent = "";
 
   function typing() {
     if (i < text.length) {
-      element.innerHTML += text.charAt(i);
+      element.textContent += text.charAt(i);
       i++;
       setTimeout(typing, speed);
     }
@@ -847,24 +1035,27 @@ function typeEffect(element, text, speed = 70) {
   typing();
 }
 
+/* ===============================
+   🚀 INIT
+=============================== */
 document.addEventListener("DOMContentLoaded", () => {
-  const name = getGuestName();
-  const el = document.getElementById("guest-name");
+  const guestName = getGuestName();
 
-  if (el) {
-    // delay biar nunggu "Kepada" muncul dulu
+  // Tampilkan nama di cover
+  const guestElement = document.getElementById("guest.name");
+  if (guestElement) {
     setTimeout(() => {
-      typeEffect(el, name);
+      typeEffect(guestElement, guestName);
     }, 1000);
   }
 
+  // Isi otomatis form RSVP
   const inputNama = document.getElementById("nama");
   if (inputNama) {
-    inputNama.value = name;
+    inputNama.value = guestName;
     inputNama.setAttribute("readonly", true);
   }
 });
-
 
 </script>
  
@@ -1023,7 +1214,7 @@ let ticking = false;
   } else {
     assistiveTouch.style.left = (screenWidth - rect.width - 10) + "px";
   }
-});
+}
      // ================= IDLE =================
 let idleTimer;
 
