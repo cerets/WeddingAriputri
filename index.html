@@ -842,21 +842,10 @@ if (music) {
 // URL website utama (bukan bit.ly)
 const BASE_URL = "https://cerets.github.io/WeddingAriputri/";
 
-// ======================================================
-// SIMPAN DATA
-// ===================================================
-// ======================================================
-// GENERATE ID OTOMATIS
-// INV001, INV002, INV003, dst.
-// ======================================================
-function generateGuestId() {
-  const lastNumber = guestData.length + 1;
-  return "INV" + String(lastNumber).padStart(3, "0");
-}
 
 // ======================================================
 // GENERATE LINK
-// https://cerets.github.io/WeddingAriputri/?id=INV001
+// https://cerets.github.io/WeddingAriputri/?id=INV
 // ======================================================
 function generateLink(guest) {
   return `${BASE_URL}?id=${guest.id}`;
