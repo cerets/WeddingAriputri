@@ -1047,15 +1047,24 @@ async function getGuestName() {
 
   if (!guestId) return "Tamu Undangan";
 
-  const snapshot =
-    await db.ref("guests/" + guestId).once("value");
+  try {
 
-  if (snapshot.exists()) {
+    const snapshot =
+      await db.ref("guests/" + guestId).once("value");
 
-    return snapshot.val().name;
+    if (snapshot.exists()) {
+
+      return snapshot.val().name;
+    }
+
+    return "Tamu Undangan";
+
+  } catch (err) {
+
+    console.error(err);
+
+    return "Tamu Undangan";
   }
-
-  return "Tamu Undangan";
 }
 
 /* ===============================
