@@ -1824,27 +1824,7 @@ updateSlider();
 });
     
     
-    // ===== PARALLAX PHOTO GALLERY =====
-
-const photos = document.querySelectorAll(".parallax-photo");
-
-window.addEventListener("scroll", () => {
-
-  const scrollY = window.scrollY;
-
-  photos.forEach((photo, index) => {
-
-    // beda speed tiap foto
-    const speed = 0.03 + (index * 0.01);
-
-    // gerak atas bawah
-    const y = scrollY * speed;
-
-    photo.style.transform = `translateY(${y}px)`;
-
-  });
-
-});
+    
     
     </script>
     
