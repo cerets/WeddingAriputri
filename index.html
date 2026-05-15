@@ -557,7 +557,7 @@
 </div>
 </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    
     
     <script>
   // ===== HERO CINEMATIC LOAD =====
@@ -878,12 +878,8 @@ async function addGuest() {
     return;
   }
 
-  // generate id
+  // ambil data guest
   const snapshot = await db.ref("guests").once("value");
-
-  const total = snapshot.numChildren() + 1;
-
-  const id = "INV" + String(total).padStart(3, "0");
 
   // cek nomor duplicate
   let exists = false;
@@ -899,6 +895,29 @@ async function addGuest() {
   if (exists) {
     alert("Nomor sudah terdaftar");
     return;
+  }
+
+  // =========================
+  // GENERATE RANDOM ID
+  // contoh:
+  // INV-A8F2K
+  // =========================
+  let id;
+  let idExists = true;
+
+  while (idExists) {
+
+    id =
+      "INV-" +
+      Math.random()
+        .toString(36)
+        .substring(2, 7)
+        .toUpperCase();
+
+    const checkId =
+      await db.ref("guests/" + id).once("value");
+
+    idExists = checkId.exists();
   }
 
   // save firebase
@@ -1124,32 +1143,35 @@ function copyRek(id) {
 document.addEventListener("DOMContentLoaded", () => {
 
   const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
 
-      // 🔥 section cinematic
-      if (entry.target.tagName === "SECTION") {
-        entry.target.classList.add("show");
+    entries.forEach(entry => {
 
-        entry.target.animate([
-          { transform: "scale(1.08) translateY(100px)", opacity: 0 },
-          { transform: "scale(1) translateY(0)", opacity: 1 }
-        ], {
-          duration: 1200,
-          easing: "cubic-bezier(0.22,1,0.36,1)",
-          fill: "forwards"
-        });
-      }
+      if (entry.isIntersecting) {
 
+        // 🔥 section cinematic
+        if (entry.target.tagName === "SECTION") {
+          entry.target.classList.add("show");
 
-       if (entry.target.classList.contains("reveal")) {
-         if (entry.target.classList.contains("reveal-left")) {
-  entry.target.classList.add("show");
-}
+          entry.target.animate([
+            { transform: "scale(1.08) translateY(100px)", opacity: 0 },
+            { transform: "scale(1) translateY(0)", opacity: 1 }
+          ], {
+            duration: 1200,
+            easing: "cubic-bezier(0.22,1,0.36,1)",
+            fill: "forwards"
+          });
+        }
 
-if (entry.target.classList.contains("reveal-right")) {
-  entry.target.classList.add("show");
-}
+        if (entry.target.classList.contains("reveal")) {
+
+          if (entry.target.classList.contains("reveal-left")) {
+            entry.target.classList.add("show");
+          }
+
+          if (entry.target.classList.contains("reveal-right")) {
+            entry.target.classList.add("show");
+          }
+
           entry.target.classList.add("active");
         }
 
@@ -1165,26 +1187,34 @@ if (entry.target.classList.contains("reveal-right")) {
           entry.target.classList.add("show");
         }
 
+        // 🔥 TAMBAHKAN DI SINI
+        if (entry.target.classList.contains("closing-img")) {
+          entry.target.classList.add("show");
+        }
+
         if (entry.target.id === "typing-text") {
           if (!entry.target.classList.contains("typed")) {
             entry.target.classList.add("typed");
             startTyping(entry.target);
-            
           }
         }
 
-  observer.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: 0.3
-});
+        observer.unobserve(entry.target);
 
- document.querySelectorAll(
-  ".reveal, .fade-up, .fancy-text, .cople-text, #typing-text, .reveal-left, .reveal-right"
-).forEach(el => observer.observe(el));
-  // TAMBAH INI
-document.querySelectorAll("section").forEach(el => observer.observe(el));
+      }
+
+    });
+
+  }, {
+    threshold: 0.3
+  });
+
+  document.querySelectorAll(
+    ".reveal, .fade-up, .fancy-text, .cople-text, #typing-text, .reveal-left, .reveal-right, .closing-img"
+  ).forEach(el => observer.observe(el));
+
+  document.querySelectorAll("section")
+    .forEach(el => observer.observe(el));
 
 });
 
@@ -1262,7 +1292,7 @@ const assistiveTouch = document.getElementById("assistive");
   } else {
     assistiveTouch.style.left = (screenWidth - rect.width - 10) + "px";
   }
-}
+
      // ================= IDLE =================
 let idleTimer;
 
@@ -1439,7 +1469,7 @@ function simpanRSVP(nama, status, jumlah, pesan) {
       status,
       jumlah,
       pesan,
-      waktu: Date.now()
+      waktu:firebase.database.ServerValue.TIMESTAMP
     });
 
     alert("Konfirmasi berhasil dikirim ✅");
@@ -1456,30 +1486,76 @@ function loadRSVP() {
   if (!list) return;
 
   db.ref("rsvp").on("value", (snapshot) => {
-    list.innerHTML = "";
 
-    snapshot.forEach(child => {
-      const data = child.val();
+  list.innerHTML = "";
 
-      const item = document.createElement("div");
-      item.classList.add("comment-item");
+  const dataArray = [];
 
-      const color = data.status === "Hadir" ? "#4CAF50" : "#FF4D4D";
-
-      item.innerHTML = `
-        <div style="margin-bottom:15px; padding:10px; border-radius:10px; background:rgba(255,255,255,0.05)">
-          <strong>${data.nama}</strong> 
-          <span style="color:${color}; font-size:12px;">(${data.status})</span><br>
-          <small>${data.jumlah} orang</small>
-          <p>${data.pesan || ""}</p>
-        </div>
-      `;
-
-      list.prepend(item);
-    });
+  snapshot.forEach(child => {
+    dataArray.push(child.val());
   });
-}
 
+  dataArray.sort((a, b) => b.waktu - a.waktu);
+
+  dataArray.forEach(data => {
+
+    const item = document.createElement("div");
+    item.classList.add("comment-item");
+
+    const color =
+      data.status === "Hadir"
+      ? "#4CAF50"
+      : "#FF4D4D";
+
+    const tanggal = new Date(data.waktu || Date.now());
+
+    const jam = tanggal.toLocaleTimeString("id-ID", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+    const hari = tanggal.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "short"
+    });
+
+    item.innerHTML = `
+      <div style="
+        margin-bottom:15px;
+        padding:10px;
+        border-radius:10px;
+        background:rgba(255,255,255,0.05)
+      ">
+
+        <strong>${data.nama}</strong>
+
+        <span style="
+          color:${color};
+          font-size:12px;
+        ">
+          (${data.status})
+        </span><br>
+
+        <small>${data.jumlah} orang</small><br>
+
+        <small style="
+          opacity:.7;
+          font-size:11px;
+        ">
+          ${hari} • ${jam}
+        </small>
+
+        <p>${data.pesan || ""}</p>
+
+      </div>
+    `;
+
+    list.appendChild(item);
+
+  });
+
+});
+}
 // =======================
 // ADMIN DASHBOARD
 // =======================
@@ -1758,9 +1834,7 @@ updateSlider();
   });
 });
     
-    if (entry.target.classList.contains("closing-img")) {
-  entry.target.classList.add("show");
-}
+    
     // ===== PARALLAX PHOTO GALLERY =====
 
 const photos = document.querySelectorAll(".parallax-photo");
@@ -1813,7 +1887,7 @@ function autoSlideComments() {
 
 }
 
-setInterval(autoSlideComments, 10);
+setInterval(autoSlideComments, 20);
 
 /* pause saat disentuh */
 commentList.addEventListener('touchstart', () => {
