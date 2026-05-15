@@ -837,18 +837,14 @@ if (music) {
 // 📋 DAFTAR TAMU DENGAN ID OTOMATIS
 // ======================================================
 
-let guestData = JSON.parse(localStorage.getItem("guestData")) || [];
+
 
 // URL website utama (bukan bit.ly)
 const BASE_URL = "https://cerets.github.io/WeddingAriputri/";
 
 // ======================================================
 // SIMPAN DATA
-// ======================================================
-function saveGuests() {
-  localStorage.setItem("guestData", JSON.stringify(guestData));
-}
-
+// ===================================================
 // ======================================================
 // GENERATE ID OTOMATIS
 // INV001, INV002, INV003, dst.
@@ -869,7 +865,8 @@ function generateLink(guest) {
 // ======================================================
 // TAMBAH TAMU
 // ======================================================
-function addGuest() {
+async function addGuest() {
+
   const nameInput = document.getElementById("guestInput");
   const phoneInput = document.getElementById("guestPhone");
 
@@ -877,42 +874,60 @@ function addGuest() {
   const phone = phoneInput.value.trim();
 
   if (!name || !phone) {
-    alert("Nama dan nomor WhatsApp wajib diisi.");
+    alert("Nama dan nomor wajib diisi");
     return;
   }
 
-  // Cek nomor WhatsApp sudah ada
-  const exists = guestData.some(guest => guest.phone === phone);
+  // generate id
+  const snapshot = await db.ref("guests").once("value");
+
+  const total = snapshot.numChildren() + 1;
+
+  const id = "INV" + String(total).padStart(3, "0");
+
+  // cek nomor duplicate
+  let exists = false;
+
+  snapshot.forEach(child => {
+    const data = child.val();
+
+    if (data.phone === phone) {
+      exists = true;
+    }
+  });
+
   if (exists) {
-    alert("Nomor WhatsApp sudah terdaftar.");
+    alert("Nomor sudah terdaftar");
     return;
   }
 
-  const newGuest = {
-    id: generateGuestId(),
-    name: name,
-    phone: phone
-  };
+  // save firebase
+  db.ref("guests/" + id).set({
+    id,
+    name,
+    phone
+  });
 
-  guestData.push(newGuest);
-
-  saveGuests();
-  renderGuests();
+  alert("Tamu berhasil ditambahkan");
 
   nameInput.value = "";
   phoneInput.value = "";
-  nameInput.focus();
+
+  renderGuests();
 }
 
 // ======================================================
 // HAPUS TAMU
 // ======================================================
-function deleteGuest(index) {
-  if (!confirm("Hapus tamu ini?")) return;
+function deleteGuest(id) {
 
-  guestData.splice(index, 1);
-  saveGuests();
-  renderGuests();
+  if (!confirm("Hapus tamu?")) return;
+
+  db.ref("guests/" + id).remove()
+    .then(() => {
+      alert("Tamu dihapus");
+    });
+
 }
 
 // ======================================================
@@ -949,39 +964,69 @@ function sendWhatsApp(guest) {
 // RENDER LIST TAMU
 // ======================================================
 function renderGuests() {
+
   const guestList = document.getElementById("guestList");
-  if (!guestList) return;
 
-  guestList.innerHTML = "";
+  db.ref("guests").on("value", snapshot => {
 
-  if (guestData.length === 0) {
-    guestList.innerHTML = "<p>Belum ada tamu.</p>";
-    return;
-  }
+    guestList.innerHTML = "";
 
-  guestData.forEach((guest, index) => {
-    const link = generateLink(guest);
+    if (!snapshot.exists()) {
+      guestList.innerHTML = "<p>Belum ada tamu</p>";
+      return;
+    }
 
-    const item = document.createElement("div");
-    item.className = "guest-item";
+    let index = 1;
 
-    item.innerHTML = `
-      <div>
-        <strong>${index + 1}. ${guest.name}</strong><br>
-        <small>🆔 ${guest.id}</small><br>
-        <small>📱 ${guest.phone}</small><br>
-        <small style="word-break: break-all;">${link}</small>
-      </div>
+    snapshot.forEach(child => {
 
-      <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
-        <button onclick="copyLink('${link}')">📋 Copy</button>
-        <button onclick="sendWhatsApp(guestData[${index}])">💬 Kirim WA</button>
-        <button onclick="deleteGuest(${index})">🗑️ Hapus</button>
-      </div>
-    `;
+      const guest = child.val();
 
-    guestList.appendChild(item);
+      const link =
+        `${BASE_URL}?id=${guest.id}`;
+
+      const item = document.createElement("div");
+
+      item.className = "guest-item";
+
+      item.innerHTML = `
+        <div>
+          <strong>${index}. ${guest.name}</strong><br>
+          <small>${guest.id}</small><br>
+          <small>${guest.phone}</small><br>
+          <small style="word-break:break-all">
+            ${link}
+          </small>
+        </div>
+
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+
+          <button onclick="copyLink('${link}')">
+            📋 Copy
+          </button>
+
+          <button onclick="sendWhatsApp({
+            id:'${guest.id}',
+            name:'${guest.name}',
+            phone:'${guest.phone}'
+          })">
+            💬 WhatsApp
+          </button>
+
+          <button onclick="deleteGuest('${guest.id}')">
+            🗑 Hapus
+          </button>
+
+        </div>
+      `;
+
+      guestList.appendChild(item);
+
+      index++;
+    });
+
   });
+
 }
 
 // ======================================================
@@ -994,25 +1039,22 @@ document.addEventListener("DOMContentLoaded", renderGuests);
    https://cerets.github.io/WeddingAriputri/?id=INV001
 =============================== */
 
-function getGuestName() {
+async function getGuestName() {
+
   const params = new URLSearchParams(window.location.search);
+
   const guestId = params.get("id");
 
-  // Jika tidak ada ID
   if (!guestId) return "Tamu Undangan";
 
-  // Ambil data tamu dari localStorage
-  const guestData = JSON.parse(localStorage.getItem("guestData")) || [];
+  const snapshot =
+    await db.ref("guests/" + guestId).once("value");
 
-  // Cari tamu berdasarkan ID
-  const guest = guestData.find(item => item.id === guestId);
+  if (snapshot.exists()) {
 
-  // Jika ditemukan, tampilkan nama
-  if (guest && guest.name) {
-    return guest.name;
+    return snapshot.val().name;
   }
 
-  // Jika ID tidak ditemukan
   return "Tamu Undangan";
 }
 
@@ -1037,8 +1079,8 @@ function typeEffect(element, text, speed = 70) {
 /* ===============================
    🚀 INIT
 =============================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const guestName = getGuestName();
+document.addEventListener("DOMContentLoaded", async () => {
+  const guestName = await getGuestName();
 
   // Tampilkan nama di cover
   const guestElement = document.getElementById("guest-name");
