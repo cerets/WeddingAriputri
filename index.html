@@ -74,7 +74,7 @@
 		</path>
 		<path d="M 50 93.2 Q 72.5 81.5 75.2 50 C 76.1 32.9 60.8 26.6 50 26.6 C 25.7 26.6 28.4 45.5 26.6 54.5 Q 24.8 65.3 7.7 65.3">
 			<animate attributeName="stroke-dasharray" values="0; 174.55; 0" dur="6s" repeatCount="indefinite" begin="-1.54s" />
-		
+</path>
   <!-- scan effect -->
   <div class="scan-light"></div>
   <div class="scan-line"></div>
@@ -840,7 +840,7 @@ if (music) {
 let guestData = JSON.parse(localStorage.getItem("guestData")) || [];
 
 // URL website utama (bukan bit.ly)
-const BASE_URL = "https://bit.ly/undangan-ari-putri";
+const BASE_URL = "https://cerets.github.io/WeddingAriputri/";
 
 // ======================================================
 // SIMPAN DATA
@@ -1201,7 +1201,7 @@ if (hero) {
 
 
 
-
+const assistiveTouch = document.getElementById("assistive");
   const rect = assistiveTouch.getBoundingClientRect();
   const screenWidth = window.innerWidth;
 
@@ -1231,8 +1231,6 @@ function resetIdle() {
   assistiveTouch.addEventListener(evt, resetIdle);
 });
 
-
-     sparkle.style.width = sparkle.style.height = (6 + Math.random() * 6) + "px";
 </script>
      <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
@@ -1270,12 +1268,21 @@ function isAdmin() {
 // =======================
 // RSVP SUBMIT
 // =======================
+
 const form = document.querySelector(".rsvp-form");
 const btnKirim = document.querySelector(".btn-kirim");
 const successMsg = document.getElementById("rsvp-success");
 
+// 🔥 LOCK SUBMIT
+let isSubmitting = false;
+
 form.addEventListener("submit", function(e) {
   e.preventDefault();
+
+  // 🔥 cegah spam klik
+  if (isSubmitting) return;
+
+  isSubmitting = true;
 
   const nama = document.getElementById("nama").value.trim();
   const status = document.getElementById("status").value;
@@ -1284,19 +1291,21 @@ form.addEventListener("submit", function(e) {
 
   if (!nama || !status || jumlahValue === "") {
     alert("Lengkapi data dulu ya 🙏");
+
+    // 🔥 buka lock lagi
+    isSubmitting = false;
     return;
   }
 
   const jumlah = parseInt(jumlahValue);
 
-  // 🔥 simpan
   simpanRSVP(nama, status, jumlah, pesan);
 
-  // 🔥 animasi
   btnKirim.classList.add("loading");
   btnKirim.innerText = "Mengirim...";
 
   setTimeout(() => {
+
     btnKirim.classList.remove("loading");
     btnKirim.classList.add("success");
     btnKirim.innerText = "Terkirim ✔";
@@ -1304,27 +1313,89 @@ form.addEventListener("submit", function(e) {
     if (successMsg) successMsg.classList.add("show");
 
     setTimeout(() => {
+
       if (successMsg) successMsg.classList.remove("show");
 
       btnKirim.classList.remove("success");
       btnKirim.innerText = "Kirim Konfirmasi";
-      form.reset();
+
+      // 🔥 reset manual
+      document.getElementById("status").value = "";
+      document.getElementById("jumlahTamu").value = "";
+      document.getElementById("pesan").value = "";
+
+      // 🔥 buka lock lagi
+      isSubmitting = false;
+
     }, 3000);
 
   }, 1500);
+
 });
 // =======================
 // SAVE FIREBASE
 // =======================
+
+
+// =======================
+// AMBIL ID TAMU DARI URL
+// =======================
+const params = new URLSearchParams(window.location.search);
+const guestId = params.get("id");
+
+// =======================
+// SAVE RSVP FIREBASE
+// =======================
 function simpanRSVP(nama, status, jumlah, pesan) {
-  db.ref("rsvp").push({
-    nama,
-    status,
-    jumlah,
-    pesan,
-    waktu: Date.now()
+
+  // 🔥 VALIDASI LINK
+  if (!guestId) {
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#000;
+      color:white;
+      text-align:center;
+      padding:20px;
+      font-family:sans-serif;
+    ">
+      <div>
+        <h2>Link Undangan Tidak Valid</h2>
+        <p>Silakan gunakan link undangan resmi Dari Ari & putri.</p>
+      </div>
+    </div>
+  `;
+  return;
+}
+
+  // 🔥 CEK SUDAH RSVP BELUM
+  db.ref("rsvp/" + guestId).once("value", (snapshot) => {
+
+    // kalau sudah ada
+    if (snapshot.exists()) {
+
+      alert("Konfirmasi kehadiran sudah pernah dikirim.");
+      return;
+    }
+
+    // 🔥 SIMPAN DATA
+    db.ref("rsvp/" + guestId).set({
+      guestId,
+      nama,
+      status,
+      jumlah,
+      pesan,
+      waktu: Date.now()
+    });
+
+    alert("Konfirmasi berhasil dikirim ✅");
   });
 }
+
+
 
 // =======================
 // LOAD USER COMMENT
